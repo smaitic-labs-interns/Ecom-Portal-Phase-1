@@ -1,0 +1,28 @@
+[
+  {
+    "orderedBy": "jenish",
+    "itemName": "jordan",
+    "quantity": 3,
+    "price": 30000
+  },
+  {
+    "orderedBy": "lorem",
+    "itemName": "jordan 2 ",
+    "quanity": 5,
+    "itemPrice": 1500
+  },
+  { "orderedBy": "jerry", "itemName": "jordan ", "quanity": 3 },
+  {
+    "orderedBy": "jerry",
+    "itemName": "nike",
+    "quanity": 3,
+    "itemPrice": 15000
+  },
+  {
+    "uniqueId": "2384b2a8-ac74-4d7b-b4a4-5b816a5c337b",
+    "orderedBy": "jerry",
+    "itemName": "nike",
+    "quanity": 3,
+    "itemPrice": 15000
+  }
+]
