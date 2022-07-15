@@ -2,6 +2,7 @@ const Order = require("../model/orderModel");
 const {
   createOrderService,
   updateOrderService,
+  deleteOrderService,
 } = require("../service/orderService");
 
 const { isEmpty } = require("../utils/validator");
@@ -26,19 +27,8 @@ function orderCreateController() {
   }
 }
 
-function orderUpdateController(uniqueId) {
-  const { quantity } = {
-    quantity: 44,
-  };
-  if (!isEmpty(quantity)) {
-    updateOrderService(uniqueId, { quantity });
-  }
+function orderDelete(uniqueId) {
+  deleteOrderService(uniqueId);
 }
-function statusUpdateController(uniqueId) {
-  const { status } = {
-    status: "wrong",
-  };
-  if (!isEmpty(status)) {
-    updateOrderService(uniqueId, { status });
-  }
-}
+
+orderDelete("values");

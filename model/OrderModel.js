@@ -43,33 +43,6 @@ class Order {
       console.log(error);
     }
   }
-
-  static update(
-    uniqueId,
-    {
-      orderedBy = null,
-      quantity = null,
-      itemName = null,
-      itemPrice = null,
-      status = null,
-    }
-  ) {
-    let orders = readJson("../database/order.json");
-    const newOrders = orders.map((order) => {
-      if (order.uniqueId == uniqueId) {
-        order.orderedBy = orderedBy === null ? order.orderedBy : orderedBy;
-        order.quantity = quantity === null ? order.quantity : quantity;
-        order.itemName = itemName === null ? order.itemName : itemName;
-        order.itemPrice = itemPrice === null ? order.itemPrice : itemPrice;
-        if (!Order.ORDER_STATUS.includes(status)) {
-          throw "Invalid status";
-        }
-        order.status = status == null ? order.status : status;
-      }
-      return order;
-    });
-    writeFile("../database/order.json", newOrders);
-  }
   static delete(uniqueId) {
     let order = readJson("../model/OrderModel.js");
     const orders = order.filter((order) => {
