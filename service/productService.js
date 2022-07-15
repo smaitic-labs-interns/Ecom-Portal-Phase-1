@@ -14,7 +14,7 @@ exports.updateProductService = (_title, { title, description, price }) => {
   Product.update(_title, { title, description, price });
 };
 
-exports.deleteProdectService = (title) => {
+exports.deleteProductService = (title) => {
   Product.delete(title);
 };
 

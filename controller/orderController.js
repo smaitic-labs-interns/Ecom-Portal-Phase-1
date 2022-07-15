@@ -1,33 +1,28 @@
-const Order = require('../model/orderModel')
+const Order = require("../model/orderModel");
 const {
-  createOrderService
+  createOrderService,
+  updateOrderService,
 } = require("../service/orderService");
 
 const { isEmpty } = require("../utils/validator");
 
-
 function orderCreateController() {
-  const {uniqueId,orderedBy, itemName, quantity, itemPrice} = {
-    uniqueId: Order.uniqueId,
-    orderedBy: "jerry",
-    itemName: "nike",
-    quantity: 3,
-    itemPrice: 15000
+  const { orderedBy, itemName, quantity, itemPrice } = {
+    orderedBy: "Bikin",
+    itemName: "Gold star",
+    quantity: 10,
+    itemPrice: 15000,
   };
-  console.log(itemName);
+  console.log(orderedBy, itemName, quantity, itemPrice);
 
   if (
-    !isEmpty(uniqueId) &&
     !isEmpty(orderedBy) &&
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
     !isEmpty(itemPrice)
   ) {
-    createOrderService({ uniqueId, orderedBy, itemName, quantity, itemPrice });
+    createOrderService({ orderedBy, itemName, quantity, itemPrice });
   }
 }
-
-orderCreateController();
-
 

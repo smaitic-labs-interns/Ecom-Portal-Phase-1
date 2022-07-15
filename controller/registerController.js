@@ -12,13 +12,13 @@ function signup() {
     User.create(user.toJson());
   }
 
-  console.log(user);
+ 
 }
 
 signup();
 
-const user = {
-  username: "jerry",
-  email: "jerry@gmail.com",
-  password: "asdgjlsa",
-};
+// const user = {
+//   username: "jerry",
+//   email: "jerry@gmail.com",
+//   password: "asdgjlsa",
+// };

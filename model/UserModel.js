@@ -26,9 +26,9 @@ class User {
     };
   }
 
-  static fromJson(data) {
-    return User(data["email"], data["password"], data["username"]);
-  }
+  // static fromJson(data) {
+  //   return User(data["email"], data["password"], data["username"]);
+  // }
 
   static create(obj) {
     let user = readJson("../database/users.json");

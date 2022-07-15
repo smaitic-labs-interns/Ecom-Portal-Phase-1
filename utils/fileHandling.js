@@ -11,5 +11,5 @@ exports.writeFile = (file_path, data) => {
 }
 
 exports.appendFile = (file_path, data) => {
-    fs/fs.appendFileSync(file_path,JSON.stringify(data))
+    fs.appendFileSync(file_path,JSON.stringify(data))
 }
