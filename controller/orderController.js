@@ -26,3 +26,19 @@ function orderCreateController() {
   }
 }
 
+function orderUpdateController(uniqueId) {
+  const { quantity } = {
+    quantity: 44,
+  };
+  if (!isEmpty(quantity)) {
+    updateOrderService(uniqueId, { quantity });
+  }
+}
+function statusUpdateController(uniqueId) {
+  const { status } = {
+    status: "wrong",
+  };
+  if (!isEmpty(status)) {
+    updateOrderService(uniqueId, { status });
+  }
+}
