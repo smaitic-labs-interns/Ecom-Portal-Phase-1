@@ -26,6 +26,36 @@ function orderCreateController() {
     createOrderService({ orderedBy, itemName, quantity, itemPrice });
   }
 }
+function orderUpdateController(uniqueId) {
+  const { quantity } = {
+    quantity: 44,
+  };
+  if (!isEmpty(quantity)) {
+    updateOrderService(uniqueId, { quantity });
+  }
+}
+function statusUpdateController(uniqueId) {
+  const { status } = {
+    status: "wrong",
+  };
+  if (!isEmpty(status)) {
+    updateOrderService(uniqueId, { status });
+  }
+}
+
+function statusUpdateController(uniqueId) {
+  const { status } = {
+    status: "wrong",
+  };
+  if (!isEmpty(status)) {
+    updateOrderService(uniqueId, { status });
+  }
+}
+
+exports.updateProductService = (_title, { title, description, price }) => {
+  console.log(title);
+  Product.update(_title, { title, description, price });
+};
 
 function orderDelete(uniqueId) {
   deleteOrderService(uniqueId);
