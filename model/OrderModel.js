@@ -43,13 +43,7 @@ class Order {
       console.log(error);
     }
   }
-  static delete(uniqueId) {
-    let order = readJson("../model/OrderModel.js");
-    const orders = order.filter((order) => {
-      return order.uniqueId !== uniqueId;
-    });
-    writeFile("../model/OrderModel.js", orders);
-  }
+
   static update(
     uniqueId,
     {
@@ -76,5 +70,14 @@ class Order {
     });
     writeFile("../database/order.json", newOrders);
   }
+
+  static delete(uniqueId) {
+    let order = readJson("../model/OrderModel.js");
+    const orders = order.filter((order) => {
+      return order.uniqueId !== uniqueId;
+    });
+    writeFile("../model/OrderModel.js", orders);
+  }
+  
 }
 module.exports = Order;

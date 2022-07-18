@@ -10,6 +10,11 @@ exports.createProductService = ({ title, description, price }) => {
 };
 
 
+exports.updateProductService = (_title, { title, description, price }) => {
+  console.log(title);
+  Product.update(_title, { title, description, price });
+};
+
 exports.deleteProductService = (title) => {
   Product.delete(title);
 };

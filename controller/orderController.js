@@ -44,11 +44,6 @@ function statusUpdateController(uniqueId) {
 }
 
 
-exports.updateProductService = (_title, { title, description, price }) => {
-  console.log(title);
-  Product.update(_title, { title, description, price });
-};
-
 function orderDelete(uniqueId) {
   deleteOrderService(uniqueId);
 }
