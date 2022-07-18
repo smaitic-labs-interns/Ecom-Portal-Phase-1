@@ -9,12 +9,13 @@ exports.createProductService = ({ title, description, price }) => {
   Product.create(product.toJson());
 };
 
+
 exports.updateProductService = (_title, { title, description, price }) => {
   console.log(title);
   Product.update(_title, { title, description, price });
 };
 
-exports.deleteProdectService = (title) => {
+exports.deleteProductService = (title) => {
   Product.delete(title);
 };
 

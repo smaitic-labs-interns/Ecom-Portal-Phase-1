@@ -1,33 +1,49 @@
-const Order = require('../model/orderModel')
+const Order = require("../model/orderModel");
 const {
-  createOrderService
+  createOrderService,
+  updateOrderService,
 } = require("../service/orderService");
 
 const { isEmpty } = require("../utils/validator");
 
-
 function orderCreateController() {
-  const {uniqueId,orderedBy, itemName, quantity, itemPrice} = {
-    uniqueId: Order.uniqueId,
-    orderedBy: "jerry",
-    itemName: "nike",
-    quantity: 3,
-    itemPrice: 15000
+  const { orderedBy, itemName, quantity, itemPrice, status } = {
+    orderedBy: "James",
+    itemName: "gucchi",
+    quantity: 2,
+    itemPrice: 11500,
   };
-  console.log(itemName);
+  console.log(orderedBy, itemName, quantity, itemPrice, status);
 
   if (
-    !isEmpty(uniqueId) &&
     !isEmpty(orderedBy) &&
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
     !isEmpty(itemPrice)
   ) {
-    createOrderService({ uniqueId, orderedBy, itemName, quantity, itemPrice });
+    createOrderService({ orderedBy, itemName, quantity, itemPrice });
+  }
+}
+function orderUpdateController(uniqueId) {
+  const { quantity } = {
+    quantity: 50,
+  };
+  if (!isEmpty(quantity)) {
+    updateOrderService(uniqueId, { quantity });
+    console.log("successfully updated");
+  }
+}
+function statusUpdateController(uniqueId) {
+  const { status } = {
+    status: "paid",
+  };
+  if (!isEmpty(status)) {
+    updateOrderService(uniqueId, { status });
+    console.log("status changed successfully");
   }
 }
 
-orderCreateController();
-
-
+orderUpdateController("5adf9b9c-5bf0-4d06-bf89-841092570035");
+// orderCreateController();
+// statusUpdateController("5adf9b9c-5bf0-4d06-bf89-841092570035");
