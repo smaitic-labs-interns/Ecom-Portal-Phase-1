@@ -21,10 +21,7 @@ exports.updateOrderService = (
   uniqueId,
   { orderedBy, itemName, quantity, itemPrice, status }
 ) => {
-  console.log(status);
   Order.update(uniqueId, { orderedBy, itemName, quantity, itemPrice, status });
 };
 
-exports.deleteOrderService = (uniqueId) => {
-  Order.delete(uniqueId);
-};
+

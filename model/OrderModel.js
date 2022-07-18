@@ -19,7 +19,9 @@ class Order {
     if (Order.ORDER_STATUS.includes(status)) {
       this.status = status;
     }
+    else{
     this.status = "pending";
+    }
   }
   toJson() {
     return {
@@ -44,16 +46,7 @@ class Order {
     }
   }
 
-  static update(
-    uniqueId,
-    {
-      orderedBy = null,
-      quantity = null,
-      itemName = null,
-      itemPrice = null,
-      status = null,
-    }
-  ) {
+  static update( uniqueId,{orderedBy = null,quantity = null,itemName = null,itemPrice = null,status = null,}) {
     let orders = readJson("../database/order.json");
     const newOrders = orders.map((order) => {
       if (order.uniqueId == uniqueId) {
@@ -61,23 +54,18 @@ class Order {
         order.quantity = quantity === null ? order.quantity : quantity;
         order.itemName = itemName === null ? order.itemName : itemName;
         order.itemPrice = itemPrice === null ? order.itemPrice : itemPrice;
-        if (!Order.ORDER_STATUS.includes(status)) {
+        order.status = status === null ? order.status : status;
+        // console.log(status)
+        if (!Order.ORDER_STATUS.includes(Order.status)) {
           throw "Invalid status";
         }
-        order.status = status == null ? order.status : status;
       }
       return order;
     });
     writeFile("../database/order.json", newOrders);
   }
 
-  static delete(uniqueId) {
-    let order = readJson("../model/OrderModel.js");
-    const orders = order.filter((order) => {
-      return order.uniqueId !== uniqueId;
-    });
-    writeFile("../model/OrderModel.js", orders);
-  }
+ 
   
 }
 module.exports = Order;
