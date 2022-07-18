@@ -43,14 +43,6 @@ function statusUpdateController(uniqueId) {
   }
 }
 
-function statusUpdateController(uniqueId) {
-  const { status } = {
-    status: "wrong",
-  };
-  if (!isEmpty(status)) {
-    updateOrderService(uniqueId, { status });
-  }
-}
 
 exports.updateProductService = (_title, { title, description, price }) => {
   console.log(title);
