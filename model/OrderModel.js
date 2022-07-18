@@ -3,7 +3,7 @@ const uuid = require("uuid");
 const uniqueId = uuid.v4();
 
 class Order {
-  static ORDER_STATUS = ["paid", "delivered", "pending"];
+  static ORDER_STATUS = ["paid", "delivered", "pending", "cancel"];
   uniqueId;
   orderedBy;
   itemName;
@@ -18,9 +18,8 @@ class Order {
     this.itemPrice = itemPrice;
     if (Order.ORDER_STATUS.includes(status)) {
       this.status = status;
-    }
-    else{
-    this.status = "pending";
+    } else {
+      this.status = "pending";
     }
   }
   toJson() {
@@ -46,7 +45,16 @@ class Order {
     }
   }
 
-  static update( uniqueId,{orderedBy = null,quantity = null,itemName = null,itemPrice = null,status = null,}) {
+  static update(
+    uniqueId,
+    {
+      orderedBy = null,
+      quantity = null,
+      itemName = null,
+      itemPrice = null,
+      status = null,
+    }
+  ) {
     let orders = readJson("../database/order.json");
     const newOrders = orders.map((order) => {
       if (order.uniqueId == uniqueId) {
@@ -56,7 +64,7 @@ class Order {
         order.itemPrice = itemPrice === null ? order.itemPrice : itemPrice;
         order.status = status === null ? order.status : status;
         // console.log(status)
-        if (!Order.ORDER_STATUS.includes(Order.status)) {
+        if (!Order.ORDER_STATUS.includes(order.status)) {
           throw "Invalid status";
         }
       }
@@ -64,8 +72,5 @@ class Order {
     });
     writeFile("../database/order.json", newOrders);
   }
-
- 
-  
 }
 module.exports = Order;

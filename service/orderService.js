@@ -23,5 +23,3 @@ exports.updateOrderService = (
 ) => {
   Order.update(uniqueId, { orderedBy, itemName, quantity, itemPrice, status });
 };
-
-

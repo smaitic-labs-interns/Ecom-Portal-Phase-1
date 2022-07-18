@@ -2,13 +2,12 @@ const Order = require("../model/orderModel");
 const {
   createOrderService,
   updateOrderService,
- 
 } = require("../service/orderService");
 
 const { isEmpty } = require("../utils/validator");
 
 function orderCreateController() {
-  const { orderedBy, itemName, quantity, itemPrice, status} = {
+  const { orderedBy, itemName, quantity, itemPrice, status } = {
     orderedBy: "James",
     itemName: "gucchi",
     quantity: 2,
@@ -21,17 +20,18 @@ function orderCreateController() {
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
-    !isEmpty(itemPrice) 
+    !isEmpty(itemPrice)
   ) {
     createOrderService({ orderedBy, itemName, quantity, itemPrice });
   }
 }
 function orderUpdateController(uniqueId) {
   const { quantity } = {
-    quantity: 5,
+    quantity: 50,
   };
   if (!isEmpty(quantity)) {
     updateOrderService(uniqueId, { quantity });
+    console.log("successfully updated");
   }
 }
 function statusUpdateController(uniqueId) {
@@ -40,13 +40,10 @@ function statusUpdateController(uniqueId) {
   };
   if (!isEmpty(status)) {
     updateOrderService(uniqueId, { status });
+    console.log("status changed successfully");
   }
 }
 
-
-
 orderUpdateController("5adf9b9c-5bf0-4d06-bf89-841092570035");
 // orderCreateController();
-// statusUpdateController("baeaad80-a331-4a08-8d2d-3671207ae3e0");
-
-
+// statusUpdateController("5adf9b9c-5bf0-4d06-bf89-841092570035");
