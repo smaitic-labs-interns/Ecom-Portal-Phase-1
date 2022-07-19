@@ -2,18 +2,16 @@ const User = require("../model/UserModel.js");
 const { emailValidation } = require("../utils/validator.js");
 
 function signup() {
-  if (emailValidation("abcd@gmail.com")) {
+ 
     const user = new User({
-      email: email,
-      password: "",
+      email: emailValidation("jerry@gmail.com"),
+      password: "niceone",
       username: "james",
     });
 
     User.create(user.toJson());
   }
 
- 
-}
 
 signup();
 
