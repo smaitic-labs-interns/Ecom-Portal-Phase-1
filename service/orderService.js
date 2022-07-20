@@ -5,6 +5,7 @@ exports.createOrderService = ({
   itemName,
   quantity,
   itemPrice,
+  address,
   status,
 }) => {
   let order = new Order({
@@ -12,6 +13,7 @@ exports.createOrderService = ({
     itemName,
     quantity,
     itemPrice,
+    address,
     status,
   });
   Order.create(order.toJson());

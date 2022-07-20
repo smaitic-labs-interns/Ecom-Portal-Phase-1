@@ -1,16 +1,21 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
+const uuid = require("uuid");
+const uniqueId = uuid.v4();
 
 class Product {
+  uniqueId;
   title;
   description;
   price;
   constructor({ title, description, price }) {
+    this.uniqueId = uniqueId;
     this.title = title;
     this.description = description;
     this.price = price;
   }
   toJson() {
     return {
+      uniqueId: this.uniqueId,
       title: this.title,
       description: this.description,
       price: this.price,

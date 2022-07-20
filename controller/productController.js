@@ -2,7 +2,7 @@ const Product = require("../model/ProductModel");
 const {
   createProductService,
   updateProductService,
-} = require("../service/product");
+} = require("../service/productService");
 const { isEmpty } = require("../utils/validator");
 
 function productSearchController() {
@@ -13,7 +13,7 @@ function productSearchController() {
 
 function productCreateController() {
   const { title, description, price } = {
-    title: "jordan 3",
+    title: "jordannike",
     description: "lorem",
     price: 1500,
   };
