@@ -1,6 +1,9 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
+const uuid = require("uuid");
+const uniqueId = uuid.v4();
 
 class User {
+  uniqueId
   email;
   password;
   username;
@@ -13,6 +16,7 @@ class User {
     ) {
       throw "all field is required";
     }
+    this.uniqueId = uniqueId
     this.email = email;
     this.password = password;
     this.username = username;
@@ -20,6 +24,7 @@ class User {
 
   toJson() {
     return {
+      uniqueId: this. uniqueId,
       username: this.username,
       password: this.password,
       email: this.email,
@@ -31,7 +36,7 @@ class User {
   // }
 
   static create(obj) {
-    let user = readJson("../database/users.json");
+    let user = readJson(process.env.USER_JSON);
     const exists = user.filter((user) => {
       return user.email == obj.email;
     });
@@ -39,7 +44,7 @@ class User {
       user.push(obj);
       console.log(user);
       try {
-        writeFile("../database/users.json", user);
+        writeFile(process.env.USER_JSON, user);
         return true;
       } catch (error) {
         console.log(error);
@@ -50,12 +55,12 @@ class User {
   }
 
   static selectAll() {
-    const user = readJson("../database/users.json");
+    const user = readJson(process.env.USER_JSON);
     return user;
   }
 
   static selectOne(email) {
-    let reader = readJson("../database/users.json");
+    let reader = readJson(process.env.USER_JSON);
     return reader.filter((user) => user.email === email);
   }
 }

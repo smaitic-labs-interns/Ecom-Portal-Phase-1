@@ -1,24 +1,15 @@
 const User = require("../model/UserModel.js");
 const { emailValidation } = require("../utils/validator.js");
-
+const { createUserService } = require("../service/userService");
+require('dotenv').config({path:'../.env'})
 function signup() {
-  if (emailValidation("abcd@gmail.com")) {
-    const user = new User({
-      email: email,
-      password: "",
-      username: "james",
-    });
+  const { email, username, password } = {
+    email: emailValidation("jerry123@gmail.com"),
+    username: "james",
+    password: "asdfwsdf",
+  };
 
-    User.create(user.toJson());
-  }
-
- 
+  createUserService({ email, username, password });
 }
 
 signup();
-
-// const user = {
-//   username: "jerry",
-//   email: "jerry@gmail.com",
-//   password: "asdgjlsa",
-// };

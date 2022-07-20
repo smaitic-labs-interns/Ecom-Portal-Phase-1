@@ -2,5 +2,17 @@
   { "title": "jordan III", "description": "lorem", "price": 15000 },
   { "title": "jordan I", "description": "lorem 3", "price": 200 },
   { "title": "jordan 2 ", "description": "lorem", "price": 1500 },
-  { "title": "jordan 3", "description": "lorem", "price": 1500 }
+  { "title": "jordan 3", "description": "lorem", "price": 1500 },
+  {
+    "uniqueId": "782ddc52-0da4-4f11-b1d0-925242fcb5c2",
+    "title": "jordannike",
+    "description": "lorem",
+    "price": 1500
+  },
+  {
+    "uniqueId": "2924337d-a208-4656-adfa-cd01606a327d",
+    "title": "louis vuitton",
+    "description": "lorem",
+    "price": 1500
+  }
 ]

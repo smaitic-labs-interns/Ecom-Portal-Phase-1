@@ -5,6 +5,7 @@ exports.createOrderService = ({
   itemName,
   quantity,
   itemPrice,
+  address,
   status,
 }) => {
   let order = new Order({
@@ -12,6 +13,7 @@ exports.createOrderService = ({
     itemName,
     quantity,
     itemPrice,
+    address,
     status,
   });
   Order.create(order.toJson());
@@ -23,3 +25,6 @@ exports.updateOrderService = (
 ) => {
   Order.update(uniqueId, { orderedBy, itemName, quantity, itemPrice, status });
 };
+  exports.deleteOrderService = (uniqueId) => {
+  Order.delete(uniqueId);
+  }

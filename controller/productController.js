@@ -2,8 +2,9 @@ const Product = require("../model/ProductModel");
 const {
   createProductService,
   updateProductService,
-} = require("../service/product");
+} = require("../service/productService");
 const { isEmpty } = require("../utils/validator");
+require('dotenv').config({path: "../.env"})
 
 function productSearchController() {
   let title = "jo";
@@ -13,7 +14,7 @@ function productSearchController() {
 
 function productCreateController() {
   const { title, description, price } = {
-    title: "jordan 3",
+    title: "louis vuitton",
     description: "lorem",
     price: 1500,
   };

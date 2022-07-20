@@ -10,5 +10,17 @@
   { "username": "james", "password": "lasjdkhg", "email": "abc@gmail.com" },
   { "username": "james", "password": "lasjdkhg", "email": "abcd@gmail.com" },
   { "username": "james", "password": "454654", "email": "james@gmail.com" },
-  { "username": "james", "password": "sdfsad", "email": "abcdgmail.com" }
+  { "username": "james", "password": "sdfsad", "email": "abcdgmail.com" },
+  {
+    "uniqueId": "a61a9406-c905-4e9a-a7fd-4ef4ab056865",
+    "username": "james",
+    "password": "niceone",
+    "email": "jerryman@gmail.com"
+  },
+  {
+    "uniqueId": "20625d30-d0cf-4223-a91f-a81b529f0490",
+    "username": "james",
+    "password": "asdfwsdf",
+    "email": "jerry123@gmail.com"
+  }
 ]
