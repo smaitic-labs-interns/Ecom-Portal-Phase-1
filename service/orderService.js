@@ -25,3 +25,6 @@ exports.updateOrderService = (
 ) => {
   Order.update(uniqueId, { orderedBy, itemName, quantity, itemPrice, status });
 };
+  exports.deleteOrderService = (uniqueId) => {
+  Order.delete(uniqueId);
+  }

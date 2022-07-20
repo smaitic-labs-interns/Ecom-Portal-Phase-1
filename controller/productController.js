@@ -4,6 +4,7 @@ const {
   updateProductService,
 } = require("../service/productService");
 const { isEmpty } = require("../utils/validator");
+require('dotenv').config({path: "../.env"})
 
 function productSearchController() {
   let title = "jo";
@@ -13,7 +14,7 @@ function productSearchController() {
 
 function productCreateController() {
   const { title, description, price } = {
-    title: "jordannike",
+    title: "louis vuitton",
     description: "lorem",
     price: 1500,
   };
