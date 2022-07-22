@@ -1,9 +1,9 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
 const uuid = require("uuid");
-const uniqueId = uuid.v4();
+const userId = uuid.v4();
 
 class User {
-  uniqueId
+  userId
   email;
   password;
   username;
@@ -16,7 +16,7 @@ class User {
     ) {
       throw "all field is required";
     }
-    this.uniqueId = uniqueId
+    this.userId = userId
     this.email = email;
     this.password = password;
     this.username = username;
@@ -24,7 +24,7 @@ class User {
 
   toJson() {
     return {
-      uniqueId: this. uniqueId,
+      userId: this. userId,
       username: this.username,
       password: this.password,
       email: this.email,
@@ -50,7 +50,7 @@ class User {
         console.log(error);
       }
     } else {
-      console.error("Already registered please signin");
+      console.error("Already registered please sign in");
     }
   }
 

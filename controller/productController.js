@@ -2,20 +2,15 @@ const Product = require("../model/ProductModel");
 const {
   createProductService,
   updateProductService,
+  filterProductOnTitleService,
 } = require("../service/productService");
 const { isEmpty } = require("../utils/validator");
-require('dotenv').config({path: "../.env"})
-
-function productSearchController() {
-  let title = "jo";
-  let product = Product.filterOne(title);
-  console.log(product);
-}
+require("dotenv").config({ path: "../.env" });
 
 function productCreateController() {
   const { title, description, price } = {
-    title: "louis vuitton",
-    description: "lorem",
+    title: "Nikeee",
+    description: "nice",
     price: 1500,
   };
   console.log(title);
@@ -26,22 +21,27 @@ function productCreateController() {
   }
 }
 
-function productUpdateController(_title) {
-
+function productUpdateController(_productId) {
   const { title, description, price } = {
     title: "jordan I",
     description: "lorem 3",
   };
-  updateProductService(_title.trim(), {
+  updateProductService(_productId.trim(), {
     title: title === undefined ? null : title.trim(),
     description: description === undefined ? null : description.trim(),
     price: price === undefined ? null : price,
   });
 }
-function deleteProductController() {
-  Product.delete("jordan");
+function productSearchController() {
+  let title = "Nike";
+  let product = filterProductOnTitleService(title);
+  console.log(product);
 }
-productCreateController();
-// productSearch();
-// deleteProduct();
-// productUpdateController("jordan I")
+
+function deleteProductController(productId) {
+  Product.delete(productId);
+}
+// productCreateController();
+productSearchController();
+// deleteProductController("5b13324a-0c11-418a-ae59-643aa95ae401");
+// productUpdateController("5b13324a-0c11-418a-ae59-643aa95ae401");

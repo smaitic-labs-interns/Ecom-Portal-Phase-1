@@ -9,51 +9,53 @@ const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
 function orderCreateController() {
-  const { orderedBy, itemName, quantity, itemPrice, status, address } = {
-    orderedBy: "Jack",
-    itemName: "Louis vuitton",
+  const { orderedBy, itemName, quantity, itemPrice, status, address, paymentMethod } = {
+    orderedBy: "Jerry",
+    itemName: "chanel",
     quantity: 1,
-    itemPrice: 11500,
-    address: "Nagarkot",
+    itemPrice: 155,
+    address: "lalitpur",
+    paymentMethod: "cash"
+    
   };
-  console.log(orderedBy, itemName, quantity, itemPrice, address, status);
+  console.log(orderedBy, itemName, quantity, itemPrice, address, status, paymentMethod);
 
   if (
-    !isEmpty(orderedBy) &&
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
     !isEmpty(itemPrice) &&
-    !isEmpty(address)
+    !isEmpty(address)&&
+    !isEmpty(paymentMethod)
   ) {
-    createOrderService({ orderedBy, itemName, quantity, itemPrice, address });
+    createOrderService({ orderedBy, itemName, quantity, itemPrice, address, paymentMethod });
   }
 }
-function orderUpdateController(uniqueId) {
+function orderUpdateController(orderId) {
   const { quantity, address } = {
     quantity: 5,
     address: " Kathmandu",
   };
   if (!isEmpty(quantity) && !isEmpty(address)) {
-    updateOrderService(uniqueId, { quantity, address });
+    updateOrderService(orderId, { quantity, address });
     console.log("successfully updated");
   }
 }
-function statusUpdateController(uniqueId) {
+function statusUpdateController(orderId) {
   const { status } = {
     status: "paid",
   };
   if (!isEmpty(status)) {
-    updateOrderService(uniqueId, { status });
+    updateOrderService(orderId, { status });
     console.log("status changed successfully");
   }
 }
-function orderDeleteController(uniqueId) {
-  deleteOrderService(uniqueId);
+function orderDeleteController(orderId) {
+  deleteOrderService(orderId);
   console.log("delete successful");
 }
 
-// orderUpdateController("a6545d25-de00-481a-9f74-57dca67c5940");
-// orderCreateController();
-// statusUpdateController("baeaad80-a331-4a08-8d2d-3671207ae3e0");
-orderDeleteController("b9d2a983-39c5-4286-957d-27c315fad8a5");
+// orderUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
+orderCreateController();
+// statusUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
+// orderDeleteController("b9d2a983-39c5-4286-957d-27c315fad8a5");
