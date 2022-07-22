@@ -10,6 +10,6 @@ exports.writeFile = (file_path, data) => {
     fs.writeFileSync(file_path, JSON.stringify(data))
 }
 
-exports.appendFile = (file_path, data) => {
-    fs.appendFileSync(file_path,JSON.stringify(data))
-}
+// exports.appendFile = (file_path, data) => {
+//     fs.appendFileSync(file_path,JSON.stringify(data))
+// }

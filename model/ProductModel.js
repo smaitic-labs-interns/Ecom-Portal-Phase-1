@@ -1,21 +1,21 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
 const uuid = require("uuid");
-const uniqueId = uuid.v4();
+const productId = uuid.v4();
 
 class Product {
-  uniqueId;
+  productId;
   title;
   description;
   price;
   constructor({ title, description, price }) {
-    this.uniqueId = uniqueId;
+    this.productId = productId;
     this.title = title;
     this.description = description;
     this.price = price;
   }
   toJson() {
     return {
-      uniqueId: this.uniqueId,
+      productId: this.productId,
       title: this.title,
       description: this.description,
       price: this.price,
@@ -27,11 +27,12 @@ class Product {
     const exists = product.filter((product) => {
       return product.title == obj.title;
     });
+    console.log(exists)
     if (exists.length == 0) {
       product.push(obj);
       console.log(product);
       try {
-        writeFile("../database/product.json", product);
+        writeFile(process.env.PRODUCT_JSON, product);
         return true;
       } catch (error) {
         console.log(error);
@@ -48,22 +49,22 @@ class Product {
     let reader = readJson(process.env.PRODUCT_JSON);
     return reader.filter((product) => product.title.includes(title));
   }
-  static selectOne(title) {
+  static selectOne(productId) {
     let reader = readJson(process.env.PRODUCT_JSON);
-    return reader.filter((product) => product.title === title);
+    return reader.filter((product) => product.productId === productId);
   }
 
-  static delete(title) {
+  static delete(productId) {
     let product = readJson(process.env.PRODUCT_JSON);
     const products = product.filter((product) => {
-      return product.title !== title;
+      return product.productId !== productId;
     });
     writeFile(process.env.PRODUCT_JSON, products);
   }
-  static update(_title, { title = null, description = null, price = null }) {
+  static update(_productId, { title = null, description = null, price = null }) {
     let product = readJson(process.env.PRODUCT_JSON);
     const newProduct = product.map((prod) => {
-      if (prod.title == _title) {
+      if (prod.productId == _productId) {
         prod.title = title === null ? prod.title : title;
         prod.description =
           description === null ? prod.description : description;

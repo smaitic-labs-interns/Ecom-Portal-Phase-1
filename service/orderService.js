@@ -6,6 +6,7 @@ exports.createOrderService = ({
   quantity,
   itemPrice,
   address,
+  paymentMethod,
   status,
 }) => {
   let order = new Order({
@@ -14,17 +15,20 @@ exports.createOrderService = ({
     quantity,
     itemPrice,
     address,
+    paymentMethod,
     status,
   });
   Order.create(order.toJson());
 };
 
 exports.updateOrderService = (
-  uniqueId,
-  { orderedBy, itemName, quantity, itemPrice, status }
+  orderId,
+  { quantity, address,status }
 ) => {
-  Order.update(uniqueId, { orderedBy, itemName, quantity, itemPrice, status });
+  Order.update(orderId, {quantity, address, status });
 };
-  exports.deleteOrderService = (uniqueId) => {
-  Order.delete(uniqueId);
+  exports.deleteOrderService = (orderId) => {
+  Order.delete(orderId);
   }
+
+  
