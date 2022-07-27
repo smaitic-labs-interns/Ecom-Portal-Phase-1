@@ -5,9 +5,9 @@ require("dotenv").config({ path: "../.env" });
 
 function signup() {
   let user = new User({
-    username:"jacky",
-    email:emailValidation("jacyy@gmail.com"),
-    password:passwordEncrypt("hello")
+    username: "jacky",
+    email: emailValidation("jacyy@gmail.com"),
+    password: passwordEncrypt("hello")
   });
   User.create(user.toJson());
 }

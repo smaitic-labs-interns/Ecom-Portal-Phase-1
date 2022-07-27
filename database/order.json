@@ -27,6 +27,6 @@
     "itemPrice": 1300,
     "address": "birgunj",
     "paymentMethod": "cash",
-    "status": "pending"
+    "status": "paid"
   }
 ]

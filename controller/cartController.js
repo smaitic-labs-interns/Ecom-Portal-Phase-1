@@ -1,18 +1,17 @@
-const Cart = require("../services/CartService");
+const Cart = require("../model/CartModel");
 const Product = require("../services/ProductService");
 const { isEmpty } = require("../utils/validator");
 const {
   deleteCartService,
   createCartService,
-  addItemToCartService,
-} = require("../model/cartModel");
+  cartSelectOne,
+  cartSelectAll,
+  updateCartService,
+} = require("../services/cartService");
 const { readJson } = require("../utils/fileHandling");
 require("dotenv").config({ path: "../.env" });
 
 function cartCreateController(productId) {
-  let cart = new Cart({
-    productId,
-  });
   console.log(productId);
 
   if (!isEmpty(productId)) {
@@ -23,22 +22,25 @@ function cartCreateController(productId) {
       console.log("Product not found");
       return;
     }
+    let cart = new Cart({
+      productId,
+    });
 
-    Cart.create(cart.toJson());
+    createCartService(cart.toJson());
   }
 }
 
 function cartDeleteController(cartId) {
-  Cart.delete(cartId);
+  deleteCartService(cartId);
   console.log("delete successful");
 }
 
 function addItemToCart() {
   const { cartId, productId } = {
-    cartId: "a37313fb-3c48-4ff5-81e0-7df6938a87cd",
+    cartId: "38d1f963-66b9-4f68-81c1-0648da30471e",
     productId: "e1b53e60-728d-4b19-b7b6-e309683527ed",
   };
-  let cart = Cart.selectOne(cartId)[0];
+  let cart = cartSelectOne(cartId)[0];
   let products = cart.products;
 
   exists =
@@ -50,20 +52,9 @@ function addItemToCart() {
   }
   cart.products = [...cart.products, productId];
   console.log("cart", cart);
-  Cart.update(cart);
-
-  // if (!isEmpty(cartId) && !isEmpty(productId)) {
-  //   let productExists = Product.selectOne(productId)
-  //   let cartExists = Cart.selectOne(cartId)
-  //   console.log(cartExists)
-  //   if (cartExists && productExists) {
-  //     Cart.selectOne(cartId, {productId });
-  //     return
-  //   }
-  //   console.error("Error");
-  // }
+  updateCartService(cart)
 }
 
 // cartCreateController("5caca0bc-1a73-4b26-b7a4-5c465e75b73d");
-addItemToCart();
-// cartDeleteController("6d79e339-2819-4273-a8d3-3e86f1ad5d21");
+// addItemToCart();
+cartDeleteController("38d1f963-66b9-4f68-81c1-0648da30471e");

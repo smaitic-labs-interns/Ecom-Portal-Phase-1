@@ -1,30 +1,26 @@
-const Cart = require("../services/CartService");
+const uuid = require("uuid");
+const cartId = uuid.v4();
 
-exports.createCartService = ({ productId }) => {
-  let cart = new Cart({
-    productId,
-  });
-  console.log("inside service");
-  Cart.create(cart.toJson());
-};
-exports.deleteCartService = (cartId) => {
-  Cart.delete(cartId);
-};
+class Cart{
+  
+  cartId;
+  products = [];
 
-exports.addItemToCartService = (cartId, { productId = null }) => {
-  let cart = Cart.selectOne(cartId)[0];
-  let products = cart.products;
-
-  exists =
-    products.filter((prod) => prod == productId).length <= 0 ? false : true;
-
-    if (exists) {
-    console.log("Product already exists");
-    return;
+  constructor({ productId }) {
+    this.cartId = cartId;
+    this.addProduct(productId);
   }
-  cart.products = [...cart.products, productId];
-  console.log("cart", cart);
-  Cart.update(cart);
-};
 
+  toJson() {
+    return {
+      cartId: this.cartId,
+      products: this.products,
+    };
+  }
+  addProduct(productId) {
+    console.log("inside products addition");
+    this.products.push(productId);
+  }
+}
 
+module.exports = Cart

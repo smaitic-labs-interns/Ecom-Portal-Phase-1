@@ -10,5 +10,11 @@
     "username": "james",
     "password": "asdfwsdf",
     "email": "puransir@gmail.com"
+  },
+  {
+    "userId": "d971f0a1-893e-4fda-abb6-0fb10664395d",
+    "username": "jacky",
+    "password": "$2b$10$WoJDPyiV0WY9VCbtNk76sOTy3urgYtpC3NG7lqWPcI1hZMFFjClBu",
+    "email": "jacyy@gmail.com"
   }
 ]

@@ -17,9 +17,9 @@ exports.isEmpty = (value) => {
   return false;
 };
 
-exports.passwordEncrypt = async (password) => {
-  let salt = await bcrypt.genSalt(10);
-  let encryptedpassword = await bcrypt.hash(password, salt);
+exports.passwordEncrypt = (password) => {
+  let salt = bcrypt.genSaltSync(10);
+  let encryptedpassword = bcrypt.hashSync(password, salt);
   if (!encryptedpassword) {
     throw "password is not encrypted";
   }

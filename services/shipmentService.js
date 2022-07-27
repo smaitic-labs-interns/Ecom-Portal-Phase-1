@@ -1,10 +1,11 @@
-const Order = require("../database/order.json");
 const uuid = require("uuid");
 const { readJson, writeFile } = require("../utils/fileHandling");
+const { selectOneOrderService } = require("./OrderService");
 const shipmentId = uuid.v4();
 
 class Shipment {
   shipmentId;
+  address;
   orderId;
   status;
 
@@ -22,15 +23,13 @@ class Shipment {
     };
   }
 
-  static create(obj) {
+  static create(obj, orderId) {
     let ship = readJson(process.env.SHIP_JSON);
 
-    let order = readJson(process.env.ORDER_JSON);
-    const exists = order.filter((order) => {
-      return order.orderId == obj.orderId;
-    });
-    console.log(exists)
-    if (!exists.length == 0) {
+    let orderExists = selectOneOrderService(orderId).length <= 0 ? false : selectOneOrderService(orderId)[0];
+
+    console.log(orderExists);
+    if (orderExists && orderExists.status == "paid") {    
       ship.push(obj);
       console.log(ship);
       try {
@@ -39,18 +38,12 @@ class Shipment {
       } catch (error) {
         console.log(error);
       }
+    } else {
+      throw "Either order or status is not paid";
     }
-    else{
-      console.log("order ID is not valid");
-    }
-     }
+  }
 
-  
-    // console.log(shipping);
-
-  
-    
-  
+  // console.log(shipping);
 }
 
 module.exports = Shipment;
