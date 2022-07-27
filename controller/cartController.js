@@ -1,18 +1,18 @@
-const Cart = require("../model/CartModel");
-const Product = require("../model/ProductModel");
+const Cart = require("../services/CartService");
+const Product = require("../services/ProductService");
 const { isEmpty } = require("../utils/validator");
 const {
   deleteCartService,
   createCartService,
   addItemToCartService,
-} = require("../service/cartService");
+} = require("../model/cartModel");
 const { readJson } = require("../utils/fileHandling");
 require("dotenv").config({ path: "../.env" });
 
-function cartCreateController() {
-  const { productId } = {
-    productId: "98a17dab-9e5c-44e1-8d31-7c948f085def",
-  };
+function cartCreateController(productId) {
+  let cart = new Cart({
+    productId,
+  });
   console.log(productId);
 
   if (!isEmpty(productId)) {
@@ -24,32 +24,46 @@ function cartCreateController() {
       return;
     }
 
-    createCartService({ productId });
+    Cart.create(cart.toJson());
   }
 }
 
 function cartDeleteController(cartId) {
-  deleteCartService(cartId);
+  Cart.delete(cartId);
   console.log("delete successful");
 }
 
 function addItemToCart() {
   const { cartId, productId } = {
-    cartId: "f3a7bc13-c1e6-465c-831b-cd35016f38fb",
+    cartId: "a37313fb-3c48-4ff5-81e0-7df6938a87cd",
     productId: "e1b53e60-728d-4b19-b7b6-e309683527ed",
   };
-  if (!isEmpty(cartId) && !isEmpty(productId)) {
-    let productExists = Product.selectOne(productId)
-    let cartExists = Cart.selectOne(cartId)
-    console.log(cartExists)
-    if (cartExists && productExists) {
-      addItemToCartService(cartId, {productId });
-      return
-    }
-    console.error("Error");
+  let cart = Cart.selectOne(cartId)[0];
+  let products = cart.products;
+
+  exists =
+    products.filter((prod) => prod == productId).length <= 0 ? false : true;
+
+  if (exists) {
+    console.log("Product already exists");
+    return;
   }
+  cart.products = [...cart.products, productId];
+  console.log("cart", cart);
+  Cart.update(cart);
+
+  // if (!isEmpty(cartId) && !isEmpty(productId)) {
+  //   let productExists = Product.selectOne(productId)
+  //   let cartExists = Cart.selectOne(cartId)
+  //   console.log(cartExists)
+  //   if (cartExists && productExists) {
+  //     Cart.selectOne(cartId, {productId });
+  //     return
+  //   }
+  //   console.error("Error");
+  // }
 }
 
-// cartCreateController();
-// addItemToCart();
-cartDeleteController("5d864a38-1bdc-46d4-86ab-d8050dd87be4");
+// cartCreateController("5caca0bc-1a73-4b26-b7a4-5c465e75b73d");
+addItemToCart();
+// cartDeleteController("6d79e339-2819-4273-a8d3-3e86f1ad5d21");

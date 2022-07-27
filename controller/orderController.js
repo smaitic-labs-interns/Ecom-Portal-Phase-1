@@ -1,34 +1,40 @@
-const Order = require("../model/orderModel");
-const {
-  createOrderService,
-  updateOrderService,
-  deleteOrderService,
-} = require("../service/orderService");
+
+const Order = require("../services/OrderService");
+
 
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
-function orderCreateController() {
-  const { orderedBy, itemName, quantity, itemPrice, status, address, paymentMethod } = {
-    orderedBy: "Jerry",
-    itemName: "chanel",
-    quantity: 1,
-    itemPrice: 155,
-    address: "lalitpur",
-    paymentMethod: "cash"
-    
-  };
-  console.log(orderedBy, itemName, quantity, itemPrice, address, status, paymentMethod);
+function orderCreateController(
+  orderedBy,
+  itemName,
+  quantity,
+  itemPrice,
+  address,
+  paymentMethod,
+  status
+) {
+  let order = new Order({
+    orderedBy: "hari",
+    itemName:"fashion",
+    quantity:12,
+    itemPrice:1300,
+    address:"birgunj",
+    paymentMethod:"cash"
+  });
+
 
   if (
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
     !isEmpty(itemPrice) &&
-    !isEmpty(address)&&
+    !isEmpty(address) &&
     !isEmpty(paymentMethod)
   ) {
-    createOrderService({ orderedBy, itemName, quantity, itemPrice, address, paymentMethod });
+    Order.create(
+      order.toJson()
+    );
   }
 }
 function orderUpdateController(orderId) {
@@ -37,25 +43,25 @@ function orderUpdateController(orderId) {
     address: " Kathmandu",
   };
   if (!isEmpty(quantity) && !isEmpty(address)) {
-    updateOrderService(orderId, { quantity, address });
+    Order.update(orderId, { quantity, address });
     console.log("successfully updated");
   }
 }
 function statusUpdateController(orderId) {
   const { status } = {
-    status: "paid",
+    status: "cancel",
   };
   if (!isEmpty(status)) {
-    updateOrderService(orderId, { status });
+    Order.update(orderId, { status });
     console.log("status changed successfully");
   }
 }
 function orderDeleteController(orderId) {
-  deleteOrderService(orderId);
+  Order.delete(orderId);
   console.log("delete successful");
 }
 
-// orderUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
+// orderUpdateController("edb7ab18-0bcf-4c92-962f-eeb0c00305b3");
 orderCreateController();
-// statusUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
-// orderDeleteController("b9d2a983-39c5-4286-957d-27c315fad8a5");
+// statusUpdateController("edb7ab18-0bcf-4c92-962f-eeb0c00305b3");
+// orderDeleteController("edb7ab18-0bcf-4c92-962f-eeb0c00305b3");

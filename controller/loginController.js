@@ -1,11 +1,12 @@
-const User = require("../model/UserModel");
+const User = require("../services/UserService");
+require("dotenv").config({ path: "../.env" });
+
 
 function login() {
-  let email = "abc@gmail.com";
-  let password = "lasjdkh";
+  let email = "puransir@gmail.com";
+  let password = "asdfwsdf";
   let user = User.selectOne(email);
-  console.log(user[0].password === password);
-  if (user[0].password === password) {
+    if (user[0].password === password) {
     console.log("you are logged in");
   } else {
     console.log("password invalid credential");

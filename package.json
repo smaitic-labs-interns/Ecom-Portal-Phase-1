@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/smaitic-labs-interns/Ecom-Portal-Phase-1#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "uuid": "^8.3.2"
   }

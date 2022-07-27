@@ -1,12 +1,15 @@
 [
   {
-    "cartId": "6d79e339-2819-4273-a8d3-3e86f1ad5d21",
-    "products": ["98a17dab-9e5c-44e1-8d31-7c948f085def"]
-  },
-  {
     "cartId": "f3a7bc13-c1e6-465c-831b-cd35016f38fb",
     "products": [
       "98a17dab-9e5c-44e1-8d31-7c948f085def",
+      "5caca0bc-1a73-4b26-b7a4-5c465e75b73d",
+      "e1b53e60-728d-4b19-b7b6-e309683527ed"
+    ]
+  },
+  {
+    "cartId": "a37313fb-3c48-4ff5-81e0-7df6938a87cd",
+    "products": [
       "5caca0bc-1a73-4b26-b7a4-5c465e75b73d",
       "e1b53e60-728d-4b19-b7b6-e309683527ed"
     ]
