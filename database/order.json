@@ -1,83 +1,32 @@
 [
   {
-    "uniqueId": "4302d137-4c2d-46bc-8307-be283ef6bcf4",
-    "orderedBy": "jerry",
-    "itemName": "nikes",
-    "quantity": 3,
-    "itemPrice": 15000
-  },
-  {
-    "uniqueId": "97858dbb-6468-4f8f-91e1-d143147328bc",
-    "orderedBy": "jeery",
-    "itemName": "goldstar",
-    "quantity": 44,
-    "itemPrice": 15000,
-    "status": "paid"
-  },
-  {
-    "uniqueId": "5adf9b9c-5bf0-4d06-bf89-841092570035",
-    "orderedBy": "Jenish",
-    "itemName": "Van",
-    "quantity": 5,
-    "itemPrice": 1500,
+    "orderId": "0baecfd6-1d23-4169-beca-602d859fee64",
+    "orderedBy": "hari",
+    "itemName": "fashion",
+    "quantity": 12,
+    "itemPrice": 1300,
+    "address": "birgunj",
+    "paymentMethod": "cash",
     "status": "pending"
   },
   {
-    "uniqueId": "a6545d25-de00-481a-9f74-57dca67c5940",
-    "orderedBy": "James",
-    "itemName": "gucchi",
-    "quantity": 5,
-    "itemPrice": 11500,
-    "address": "Bhaktapur",
+    "orderId": "6bfe0d81-c36d-443a-b71f-15d08a91fcea",
+    "orderedBy": "hari",
+    "itemName": "fashion",
+    "quantity": 12,
+    "itemPrice": 1300,
+    "address": "birgunj",
+    "paymentMethod": "cash",
     "status": "pending"
   },
   {
-    "orderId": "08e4dfa3-6067-431e-adc7-e0106127f5e1",
-    "orderedBy": "Jack",
-    "itemName": "Louis vuitton",
-    "quantity": 1,
-    "itemPrice": 11500,
-    "address": "Nagarkot",
-    "status": "pending"
-  },
-  {
-    "orderId": "4c0e87ca-0289-4761-92c9-95078ccaa22e",
-    "orderedBy": "Jerry",
-    "itemName": "chanel",
-    "quantity": 5,
-    "itemPrice": 155,
-    "address": " Kathmandu",
+    "orderId": "d706d742-9473-4a90-afd0-7093eb706ac5",
+    "orderedBy": "hari",
+    "itemName": "fashion",
+    "quantity": 12,
+    "itemPrice": 1300,
+    "address": "birgunj",
     "paymentMethod": "cash",
     "status": "paid"
-  },
-  {
-    "orderId": "0d958b05-1a00-4276-9360-ff09c926413a",
-    "orderedBy": "Jerry",
-    "itemName": "chanel",
-    "quantity": 1,
-    "itemPrice": 155,
-    "address": "lalitpur",
-    "paymentMethod": "cash",
-    "status": "pending"
-  },
-  {
-    "orderId": "ae0e1292-3f29-45dd-9cd9-ef65ed61552d",
-    "orderedBy": "Jerry",
-    "itemName": "chanel",
-    "quantity": 1,
-    "itemPrice": 155,
-    "address": "lalitpur",
-    "paymentMethod": "card",
-    "status": "pending"
-  },
-  {
-    "orderId": "ca9a45b3-eb74-4f37-bf04-96f1ea8fea2f",
-    "orderedBy": "Jerry",
-    "itemName": "chanel",
-    "quantity": 1,
-    "itemPrice": 155,
-    "address": "lalit",
-    "paymentMethod": "cash",
-    "status": "pending"
   }
 ]

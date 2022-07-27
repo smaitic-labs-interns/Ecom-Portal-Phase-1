@@ -1,26 +1,20 @@
 [
-  { "username": "jenish", "password": "1232", "email": "jenish@gmail.com" },
-  { "name": "jerry", "email": "jenish2@gmail.com", "password": "12345" },
-  { "password": "hellobro", "email": "jerry@gmail.com" },
   {
-    "username": "jenish",
-    "password": "hellobro",
-    "email": "jerry12@gmail.com"
-  },
-  { "username": "james", "password": "lasjdkhg", "email": "abc@gmail.com" },
-  { "username": "james", "password": "lasjdkhg", "email": "abcd@gmail.com" },
-  { "username": "james", "password": "454654", "email": "james@gmail.com" },
-  { "username": "james", "password": "sdfsad", "email": "abcdgmail.com" },
-  {
-    "uniqueId": "a61a9406-c905-4e9a-a7fd-4ef4ab056865",
-    "username": "james",
-    "password": "niceone",
-    "email": "jerryman@gmail.com"
-  },
-  {
-    "uniqueId": "20625d30-d0cf-4223-a91f-a81b529f0490",
+    "userId": "f1cc08d4-4232-46ce-8574-6b5f5c5bd51c",
     "username": "james",
     "password": "asdfwsdf",
-    "email": "jerry123@gmail.com"
+    "email": "jerry13@gmail.com"
+  },
+  {
+    "userId": "3a7cbdde-b593-4fbc-b36e-78f1532e97f2",
+    "username": "james",
+    "password": "asdfwsdf",
+    "email": "puransir@gmail.com"
+  },
+  {
+    "userId": "d971f0a1-893e-4fda-abb6-0fb10664395d",
+    "username": "jacky",
+    "password": "$2b$10$WoJDPyiV0WY9VCbtNk76sOTy3urgYtpC3NG7lqWPcI1hZMFFjClBu",
+    "email": "jacyy@gmail.com"
   }
 ]

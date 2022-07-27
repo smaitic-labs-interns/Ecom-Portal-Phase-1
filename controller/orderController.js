@@ -1,34 +1,41 @@
-const Order = require("../model/orderModel");
 const {
   createOrderService,
   updateOrderService,
   deleteOrderService,
-} = require("../service/orderService");
+} = require("../services/OrderService");
+const Order = require("../model/orderModel");
 
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
-function orderCreateController() {
-  const { orderedBy, itemName, quantity, itemPrice, status, address, paymentMethod } = {
-    orderedBy: "Jerry",
-    itemName: "chanel",
-    quantity: 1,
-    itemPrice: 155,
-    address: "lalitpur",
-    paymentMethod: "cash"
-    
-  };
-  console.log(orderedBy, itemName, quantity, itemPrice, address, status, paymentMethod);
+
+function orderCreateController(
+  orderedBy,
+  itemName,
+  quantity,
+  itemPrice,
+  address,
+  paymentMethod,
+  status
+) {
+  let order = new Order({
+    orderedBy: "man",
+    itemName: "fashion",
+    quantity: 12,
+    itemPrice: 1300,
+    address: "birgunj",
+    paymentMethod: "cash",
+  });
 
   if (
     !isEmpty(orderedBy) &&
     !isEmpty(itemName) &&
     !isEmpty(quantity) &&
     !isEmpty(itemPrice) &&
-    !isEmpty(address)&&
+    !isEmpty(address) &&
     !isEmpty(paymentMethod)
   ) {
-    createOrderService({ orderedBy, itemName, quantity, itemPrice, address, paymentMethod });
+    createOrderService(order.toJson());
   }
 }
 function orderUpdateController(orderId) {
@@ -43,7 +50,7 @@ function orderUpdateController(orderId) {
 }
 function statusUpdateController(orderId) {
   const { status } = {
-    status: "paid",
+    status: "cancel",
   };
   if (!isEmpty(status)) {
     updateOrderService(orderId, { status });
@@ -55,7 +62,7 @@ function orderDeleteController(orderId) {
   console.log("delete successful");
 }
 
-// orderUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
-orderCreateController();
-// statusUpdateController("4c0e87ca-0289-4761-92c9-95078ccaa22e");
-// orderDeleteController("b9d2a983-39c5-4286-957d-27c315fad8a5");
+// orderUpdateController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
+// orderCreateController();
+// statusUpdateController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
+orderDeleteController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
