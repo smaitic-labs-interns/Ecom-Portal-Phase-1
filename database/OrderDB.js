@@ -1,10 +1,10 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-const Order = require("../model/orderModel");
+const OrderSchema = require("../model/OrderModel");
 
-exports.createOrderService = (obj) => {
+exports.createOrder = (obj) => {
   let order = readJson(process.env.ORDER_JSON);
   order = [...order, obj];
-  if (!Order.PaymentType.includes(obj.paymentMethod)) {
+  if (!OrderSchema.PaymentType.includes(obj.paymentMethod)) {
     console.error("provide valid payment type");
     return;
   }
@@ -16,7 +16,7 @@ exports.createOrderService = (obj) => {
   }
 };
 
-exports.updateOrderService = (
+exports.updateOrder = (
   orderId,
   {
     orderedBy = null,
@@ -40,7 +40,7 @@ exports.updateOrderService = (
         paymentMethod === null ? order.paymentMethod : paymentMethod;
       order.status = status === null ? order.status : status;
       // console.log(status)
-      if (!Order.ORDER_STATUS.includes(order.status)) {
+      if (!OrderSchema.ORDER_STATUS.includes(order.status)) {
         throw "Invalid status";
       }
     }
@@ -48,7 +48,7 @@ exports.updateOrderService = (
   });
   writeFile(process.env.ORDER_JSON, newOrders);
 };
-exports.deleteOrderService = (orderId) => {
+exports.deleteOrder = (orderId) => {
   let order = readJson(process.env.ORDER_JSON);
   const orders = order.filter((order) => {
     return order.orderId !== orderId;
@@ -56,7 +56,7 @@ exports.deleteOrderService = (orderId) => {
   writeFile(process.env.ORDER_JSON, orders);
 };
 
-exports.selectOneOrderService = (orderId) => {
+exports.selectOneOrder = (orderId) => {
   let reader = readJson(process.env.ORDER_JSON);
   return reader.filter((order) => order.orderId === orderId);
 };

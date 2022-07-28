@@ -1,19 +1,18 @@
-const Product = require("../services/ProductService");
+const { createProductService } = require("../service/productService");
 
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
-function productCreateController(title, description, price) {
-  let product = new Product({
+function productCreateController() {
+  const{title, description, price} = {
     title: "fabric fix",
     description: "Its a new brand name",
     price: 1500,
-  });
-  console.log(title);
+  };
+  // console.log(title);
 
   if (!isEmpty(title) && !isEmpty(description) && !isEmpty(price)) {
-    console.log("here");
-    Product.create(product.toJson());
+   createProductService(title, description, price);
   }
 }
 
@@ -38,7 +37,7 @@ function productSearchController() {
 function deleteProductController(productId) {
   Product.delete(productId);
 }
-// productCreateController();
-productSearchController();
+productCreateController();
+// productSearchController();
 // deleteProductController("49f43cac-f99e-45dc-941d-6271cb1c4b3c");
 // productUpdateController("d89f1a25-4bfe-4be8-b5f5-8059c069fbdf");

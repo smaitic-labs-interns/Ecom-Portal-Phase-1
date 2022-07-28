@@ -2,30 +2,31 @@ const {
   createOrderService,
   updateOrderService,
   deleteOrderService,
-} = require("../services/OrderService");
-const Order = require("../model/orderModel");
+} = require("../service/orderService");
+// const OrderSchema = require("../model/orderModel");
 
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
-
-function orderCreateController(
-  orderedBy,
-  itemName,
-  quantity,
-  itemPrice,
-  address,
-  paymentMethod,
-  status
-) {
-  let order = new Order({
-    orderedBy: "man",
-    itemName: "fashion",
-    quantity: 12,
-    itemPrice: 1300,
-    address: "birgunj",
+function orderCreateController() {
+  const {
+    orderedBy,
+    itemName,
+    quantity,
+    itemPrice,
+    address,
+    paymentMethod,
+    status,
+  } = {
+    orderedBy: "hello",
+    itemName: "nom",
+    quantity: 1,
+    itemPrice: 100,
+    address: "hetauda",
     paymentMethod: "cash",
-  });
+  };
+
+  // console.log(paymentMethod,'sss')
 
   if (
     !isEmpty(orderedBy) &&
@@ -34,9 +35,18 @@ function orderCreateController(
     !isEmpty(itemPrice) &&
     !isEmpty(address) &&
     !isEmpty(paymentMethod)
-  ) {
-    createOrderService(order.toJson());
-  }
+  )
+    console.log(paymentMethod);
+
+  createOrderService(
+    orderedBy,
+    itemName,
+    quantity,
+    itemPrice,
+    address,
+    paymentMethod,
+    status
+  );
 }
 function orderUpdateController(orderId) {
   const { quantity, address } = {
@@ -62,7 +72,7 @@ function orderDeleteController(orderId) {
   console.log("delete successful");
 }
 
-// orderUpdateController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
+// orderUpdateController("6bfe0d81-c36d-443a-b71f-15d08a91fcea");
 // orderCreateController();
-// statusUpdateController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
-orderDeleteController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");
+statusUpdateController("6bfe0d81-c36d-443a-b71f-15d08a91fcea");
+// orderDeleteController("6fd9d72b-4f27-4c22-abfd-b0dd11c4d95a");

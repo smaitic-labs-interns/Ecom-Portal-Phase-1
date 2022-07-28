@@ -1,32 +1,62 @@
-const Product = require("./ProductModel");
+const uuid = require("uuid");
+const productId = uuid.v4();
 
-exports.createProductService = ({ title, description, price }) => {
-  let product = new Product({
-    title,
-    description,
-    price,
-  });
-  Product.create(product.toJson());
-};
+class ProductSchema{
+productId;
+  productId;
+  title;
+  description;
+  price;
+  constructor({ title, description, price }) {
+    this.productId = productId;
+    this.title = title;
+    this.description = description;
+    this.price = price;
+  }
+  toJson(){ 
+    return {
+      productId: this.productId,
+      title: this.title,
+      description: this.description,
+      price: this.price,
+    }
+  }
+}
+
+module.exports = ProductSchema
+
+  
 
 
-exports.updateProductService = (_title, { title, description, price }) => {
-  console.log(title);
-  Product.update(_title, { title, description, price });
-};
+// const Product = require("./ProductModel");
 
-exports.deleteProductService = (title) => {
-  Product.delete(title);
-};
+// exports.createProductService = ({ title, description, price }) => {
+//   let product = new Product({
+//     title,
+//     description,
+//     price,
+//   });
+//   Product.create(product.toJson());
+// };
 
-exports.listProductService = () => {
-  return Product.selectAll();
-};
 
-exports.getProductService = (title) => {
-  return Product.selectOne(title);
-};
+// exports.updateProductService = (_title, { title, description, price }) => {
+//   console.log(title);
+//   Product.update(_title, { title, description, price });
+// };
 
-exports.filterProductOnTitleService = (title) => {
-  return Product.filterOne(title);
-};
+// exports.deleteProductService = (title) => {
+//   Product.delete(title);
+// };
+
+// exports.listProductService = () => {
+//   return Product.selectAll();
+// };
+
+// exports.getProductService = (title) => {
+//   return Product.selectOne(title);
+// };
+
+// exports.filterProductOnTitleService = (title) => {
+//   return Product.filterOne(title);
+// };

@@ -1,31 +1,11 @@
-const uuid = require("uuid");
+
 const { readJson, writeFile } = require("../utils/fileHandling");
-const { selectOneOrderService } = require("./OrderService");
-const shipmentId = uuid.v4();
+const { selectOneOrderService } = require("./OrderDB");
 
-class Shipment {
-  shipmentId;
-  address;
-  orderId;
-  status;
 
-  constructor({ orderId, status }) {
-    (this.shipmentId = shipmentId),
-      (this.orderId = orderId),
-      (this.status = status);
-      (this.address = address);
-  }
 
-  toJson() {
-    return {
-      shipmentId: this.shipmentId,
-      orderId: this.orderId,
-      status: this.status,
-      address: this.address
-    };
-  }
 
-  static create(obj, orderId) {
+  exports.create = (obj, orderId) => {
     let ship = readJson(process.env.SHIP_JSON);
 
     let orderExists = selectOneOrderService(orderId).length <= 0 ? false : selectOneOrderService(orderId)[0];
@@ -46,6 +26,4 @@ class Shipment {
   }
 
   // console.log(shipping);
-}
 
-module.exports = Shipment;

@@ -1,15 +1,16 @@
-const User = require("../services/UserService.js");
+// const UserSchema = require("..//UserDB.js");
+const { createUserService } = require("../service/userService.js");
 const { emailValidation, passwordEncrypt } = require("../utils/validator.js");
-
 require("dotenv").config({ path: "../.env" });
 
 function signup() {
-  let user = new User({
+  const {username, email, password} = {
     username: "jacky",
-    email: emailValidation("jacyy@gmail.com"),
+    email: emailValidation("jac@gmail.com"),
     password: passwordEncrypt("hello")
-  });
-  User.create(user.toJson());
+  };
+  console.log(email)
+  createUserService(username,email,password);
 }
 
 signup();

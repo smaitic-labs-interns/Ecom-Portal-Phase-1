@@ -1,9 +1,9 @@
  const uuid = require("uuid");
  const orderId = uuid.v4();
 
+
  
- class Order{
-  
+ class OrderSchema{
   static ORDER_STATUS = ["paid", "delivered", "pending", "cancel"];
   static PaymentType = ["cash", "card", "paypal"];
   orderId;
@@ -29,13 +29,14 @@
     this.quantity = quantity;
     this.itemPrice = itemPrice;
     this.address = address;
-    if (Order.PaymentType.includes(paymentMethod))
-      this.paymentMethod = paymentMethod;
-    else {
-      console.error("Provide valid input for payment");  
-    }
+    this.paymentMethod = paymentMethod;
+    // if (OrderSchema.PaymentType.includes(paymentMethod))
+    //   this.paymentMethod = paymentMethod;
+    // else {
+    //   console.error("Provide valid input for payment");  
+    // }
 
-    if (Order.ORDER_STATUS.includes(status)) {
+    if (OrderSchema.ORDER_STATUS.includes(status)) {
       this.status = status;
     } else {
       this.status = "pending";
@@ -55,4 +56,4 @@
   }
 }
 
-module.exports = Order;
+module.exports = OrderSchema;

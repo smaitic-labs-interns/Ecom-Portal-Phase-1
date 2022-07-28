@@ -1,4 +1,4 @@
-const Cart = require("../model/CartModel");
+// const Cart = require("../model/CartModel");
 const { readJson, writeFile } = require("../utils/fileHandling");
 
 exports.cartSelectAll = () => {
@@ -20,7 +20,7 @@ exports.cartSelectOne = (cartId) => {
   }
 };
 
-exports.updateCartService = (obj) => {
+exports.updateCart = (obj) => {
   let carts = readJson(process.env.CART_JSON);
   let newCart = carts.map((cart) => {
     if (cart.cartId == obj.cartId) {
@@ -35,7 +35,7 @@ exports.updateCartService = (obj) => {
   }
 };
 
-exports.deleteCartService = (cartId) => {
+exports.deleteCart = (cartId) => {
   let cart = readJson(process.env.CART_JSON);
   const carts = cart.filter((cart) => {
     return cart.cartId !== cartId;
@@ -43,7 +43,7 @@ exports.deleteCartService = (cartId) => {
   writeFile(process.env.CART_JSON, carts);
 };
 
-exports.createCartService = (obj) => {
+exports.createCart = (obj) => {
   let cart = readJson(process.env.CART_JSON);
   console.log(obj);
   cart = [...cart, obj];

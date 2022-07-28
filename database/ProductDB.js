@@ -1,36 +1,16 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-const uuid = require("uuid");
-const productId = uuid.v4();
+// const uuid = require("uuid");
+// const productId = uuid.v4();
 
-class Product {
-  productId;
-  title;
-  description;
-  price;
-  constructor({ title, description, price }) {
-    this.productId = productId;
-    this.title = title;
-    this.description = description;
-    this.price = price;
-  }
-  toJson() {
-    return {
-      productId: this.productId,
-      title: this.title,
-      description: this.description,
-      price: this.price,
-    };
-  }
-
-  static create(obj) {
+  exports.createProduct =(obj) => {
     let product = readJson(process.env.PRODUCT_JSON);
     const exists = product.filter((product) => {
       return product.title == obj.title;
     });
-    console.log(exists)
+    // console.log(exists)
     if (exists.length == 0) {
       product.push(obj);
-      console.log(product);
+      // console.log(product);
       try {
         writeFile(process.env.PRODUCT_JSON, product);
         return true;
@@ -38,30 +18,33 @@ class Product {
         console.log(error);
       }
     }
+    else{
+      console.log("product already exists");
+    }
   }
 
-  static selectAll() {
+  exports.selectAllProduct = () => {
     const product = readJson(process.env.PRODUCT_JSON);
     return product;
   }
 
-  static filterOne(title) {
+  exports.filterOneProduct = (title) => {
     let reader = readJson(process.env.PRODUCT_JSON);
     return reader.filter((product) => product.title.includes(title));
   }
-  static selectOne(productId) {
+  exports.selectOneProduct = (productId) => {
     let reader = readJson(process.env.PRODUCT_JSON);
     return reader.filter((product) => product.productId === productId);
   }
 
-  static delete(productId) {
+  exports.deleteProduct = (productId) => {
     let product = readJson(process.env.PRODUCT_JSON);
     const products = product.filter((product) => {
       return product.productId !== productId;
     });
     writeFile(process.env.PRODUCT_JSON, products);
   }
-  static update(_productId, { title = null, description = null, price = null }) {
+  exports.updateProduct =(_productId, { title = null, description = null, price = null }) => {
     let product = readJson(process.env.PRODUCT_JSON);
     const newProduct = product.map((prod) => {
       if (prod.productId == _productId) {
@@ -74,6 +57,6 @@ class Product {
     });
     writeFile(process.env.PRODUCT_JSON, newProduct);
   }
-}
 
-module.exports = Product;
+
+

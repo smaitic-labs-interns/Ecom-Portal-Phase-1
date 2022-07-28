@@ -1,7 +1,7 @@
 const uuid = require("uuid");
 const cartId = uuid.v4();
 
-class Cart{
+class CartSchema{
   
   cartId;
   products = [];
@@ -23,4 +23,4 @@ class Cart{
   }
 }
 
-module.exports = Cart
+module.exports = CartSchema
