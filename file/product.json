@@ -22,5 +22,11 @@
     "title": "newone",
     "description": "lorem 3",
     "price": 1500
+  },
+  {
+    "productId": "152e66bd-e574-4e53-9e02-7220763e1deb",
+    "title": "fabric fix",
+    "description": "Its a new brand name",
+    "price": 1500
   }
 ]

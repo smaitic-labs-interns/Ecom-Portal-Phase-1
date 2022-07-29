@@ -16,5 +16,17 @@
     "username": "jacky",
     "password": "$2b$10$WoJDPyiV0WY9VCbtNk76sOTy3urgYtpC3NG7lqWPcI1hZMFFjClBu",
     "email": "jacyy@gmail.com"
+  },
+  {
+    "userId": "cba0a496-5751-4fb1-ae80-f76537901b4b",
+    "username": "jacky",
+    "password": "$2b$10$e.wd5JTqNdpDx32DnC3HUOtiZRphxPNR3wWOzOmrjLl.SVpZS.Kvu",
+    "email": "jac@gmail.com"
+  },
+  {
+    "userId": "40b40598-cab9-42c8-8fed-779b4a4cf39b",
+    "email": "jsadfac@gmail.com",
+    "password": "$2b$10$dSlFY78OSbaNTR7cDK0jTe3s6FVWXZPWFexLv4.nDRQ/.0XA68MkW",
+    "username": "jacky"
   }
 ]
