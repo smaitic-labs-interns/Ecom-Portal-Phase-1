@@ -1,5 +1,6 @@
 const uuid = require("uuid");
 const userId = uuid.v4();
+const {emailValidation, passwordEncrypt} = require('../utils/validator')
 
 class UserSchema {
   userId;
@@ -16,8 +17,8 @@ class UserSchema {
       throw "all field is required";
     }
     this.userId = userId;
-    this.email = email;
-    this.password = password;
+    this.email = emailValidation(email);
+    this.password = passwordEncrypt(password);
     this.username = username;
   }
 

@@ -30,7 +30,7 @@
     this.itemPrice = itemPrice;
     this.address = address;
     this.paymentMethod = paymentMethod;
-    // if (OrderSchema.PaymentType.includes(paymentMethod))
+    OrderSchema.PaymentType.includes(paymentMethod)
     //   this.paymentMethod = paymentMethod;
     // else {
     //   console.error("Provide valid input for payment");  

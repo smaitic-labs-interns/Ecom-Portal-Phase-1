@@ -2,7 +2,6 @@ const uuid = require("uuid");
 const productId = uuid.v4();
 
 class ProductSchema{
-productId;
   productId;
   title;
   description;

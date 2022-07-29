@@ -25,3 +25,11 @@ exports.passwordEncrypt = (password) => {
   }
   return encryptedpassword;
 };
+
+exports.passwordCompare = (password) => {
+  let comparePassword = bcrypt.compare(password);
+  if(!comparePassword){
+    throw 'password does not match'
+  }  
+
+}

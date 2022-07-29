@@ -1,38 +1,33 @@
 // const Cart = require("../model/CartModel");
 const { readJson, writeFile } = require("../utils/fileHandling");
 
+exports.createCart = (obj) => {
+  let cart = readJson(process.env.CART_JSON);
+   cart = [...cart, obj];
+    writeFile(process.env.CART_JSON, cart);
+    return cart;
+};
+
 exports.cartSelectAll = () => {
-  try {
     let carts = readJson(process.env.CART_JSON);
     return carts;
-  } catch (error) {
-    console.log("Error occurred while reading file", error);
-    throw error;
-  }
+ 
 };
 
 exports.cartSelectOne = (cartId) => {
-  try {
     let carts = readJson(process.env.CART_JSON);
     return carts.filter((cart) => cart.cartId == cartId);
-  } catch (err) {
-    console.log("Error occurred while reading the file");
-  }
 };
 
 exports.updateCart = (obj) => {
   let carts = readJson(process.env.CART_JSON);
   let newCart = carts.map((cart) => {
-    if (cart.cartId == obj.cartId) {
+    if (cart.cartId == obj.cartId)  
       cart.products = obj.products;
-    }
     return cart;
   });
-  try {
     writeFile(process.env.CART_JSON, newCart);
-  } catch (error) {
-    console.log("Error occurred while writing in file", error);
-  }
+  
 };
 
 exports.deleteCart = (cartId) => {
@@ -41,16 +36,4 @@ exports.deleteCart = (cartId) => {
     return cart.cartId !== cartId;
   });
   writeFile(process.env.CART_JSON, carts);
-};
-
-exports.createCart = (obj) => {
-  let cart = readJson(process.env.CART_JSON);
-  console.log(obj);
-  cart = [...cart, obj];
-  try {
-    writeFile(process.env.CART_JSON, cart);
-    return true;
-  } catch (error) {
-    console.log(error);
-  }
 };

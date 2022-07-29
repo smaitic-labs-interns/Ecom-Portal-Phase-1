@@ -1,8 +1,5 @@
-
 const { readJson, writeFile } = require("../utils/fileHandling");
 const { selectOneOrderService } = require("./OrderDB");
-
-
 
 
   exports.create = (obj, orderId) => {

@@ -4,45 +4,18 @@ const OrderSchema = require("../model/OrderModel");
 exports.createOrder = (obj) => {
   let order = readJson(process.env.ORDER_JSON);
   order = [...order, obj];
-  if (!OrderSchema.PaymentType.includes(obj.paymentMethod)) {
-    console.error("provide valid payment type");
-    return;
-  }
-  try {
-    writeFile(process.env.ORDER_JSON, order);
-    return true;
-  } catch (error) {
-    console.log(error);
-  }
+  writeFile(process.env.ORDER_JSON, order);
+  return order
 };
 
-exports.updateOrder = (
-  orderId,
-  {
-    orderedBy = null,
-    quantity = null,
-    address = null,
-    itemName = null,
-    itemPrice = null,
-    paymentMethod = null,
-    status = null,
-  }
+exports.updateOrder = (orderId,{quantity = null,address = null,status = null}
 ) => {
   let orders = readJson(process.env.ORDER_JSON);
   const newOrders = orders.map((order) => {
     if (order.orderId == orderId) {
-      order.orderedBy = orderedBy === null ? order.orderedBy : orderedBy;
       order.quantity = quantity === null ? order.quantity : quantity;
-      order.itemName = itemName === null ? order.itemName : itemName;
-      order.itemPrice = itemPrice === null ? order.itemPrice : itemPrice;
       order.address = address === null ? order.address : address;
-      order.paymentMethod =
-        paymentMethod === null ? order.paymentMethod : paymentMethod;
-      order.status = status === null ? order.status : status;
-      // console.log(status)
-      if (!OrderSchema.ORDER_STATUS.includes(order.status)) {
-        throw "Invalid status";
-      }
+      order.status = status === null ? order.status : status;   
     }
     return order;
   });
