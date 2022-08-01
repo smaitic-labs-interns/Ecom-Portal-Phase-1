@@ -5,7 +5,6 @@ const shipmentId = uuid.v4();
 
 class Shipment {
   shipmentId;
-  address;
   orderId;
   status;
 
@@ -13,7 +12,7 @@ class Shipment {
     (this.shipmentId = shipmentId),
       (this.orderId = orderId),
       (this.status = status);
-    this.address = address;
+    
   }
 
   toJson() {
@@ -21,7 +20,7 @@ class Shipment {
       shipmentId: this.shipmentId,
       orderId: this.orderId,
       status: this.status,
-      address: this.address,
+     
     };
   }
 }
