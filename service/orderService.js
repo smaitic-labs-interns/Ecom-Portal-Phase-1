@@ -1,4 +1,8 @@
-const { createOrder, updateOrder, deleteOrder } = require("../database/OrderDB");
+const {
+  createOrder,
+  updateOrder,
+  deleteOrder,
+} = require("../database/OrderDB");
 const OrderSchema = require("../model/orderModel");
 
 const { isEmpty } = require("../utils/validator");
@@ -9,75 +13,64 @@ function orderCreateService(
   itemName,
   quantity,
   itemPrice,
-  address,
   paymentMethod
 ) {
-
   try {
-  let order = new OrderSchema({
-    orderedBy: "hello",
-    itemName: "nom",
-    quantity: 1,
-    itemPrice: 100,
-    address: "hetauda",
-    paymentMethod: "cash",
-  });
+    let order = new OrderSchema({
+      orderedBy: "hello",
+      itemName: "nom",
+      quantity: 1,
+      itemPrice: 100,
+      paymentMethod: "cash",
+    });
 
-  if (!OrderSchema.PaymentType.includes(order.paymentMethod)) {
-    console.error("provide valid payment type");
-    return;
+    if (!OrderSchema.PaymentType.includes(order.paymentMethod)) {
+      console.error("provide valid payment type");
+      return;
+    }
+    if (
+      !isEmpty(orderedBy) &&
+      !isEmpty(itemName) &&
+      !isEmpty(quantity) &&
+      !isEmpty(itemPrice) &&
+      !isEmpty(paymentMethod)
+    )
+      createOrder(order.toJson());
+  } catch (error) {
+    console.log(error);
   }
-  if (
-    !isEmpty(orderedBy) &&
-    !isEmpty(itemName) &&
-    !isEmpty(quantity) &&
-    !isEmpty(itemPrice) &&
-    !isEmpty(address) &&
-    !isEmpty(paymentMethod)
-  )
-    createOrder(order.toJson());
 }
 
-catch(error){
-  console.log(error);
-}
-}
-
-
-function orderUpdateService (orderId) {
-  try{
-  const { quantity, address } = {
-    quantity: 89,
-    address: " Kathmandu",
-  };
-  if (!isEmpty(quantity) &&
-     !isEmpty(address)){
-    updateOrder(orderId, { quantity, address });
-    console.log("successfully updated");
+function orderUpdateService(orderId) {
+  try {
+    const { quantity} = {
+      quantity: 89,
+    };
+    if (!isEmpty(quantity)) {
+      updateOrder(orderId, { quantity });
+      console.log("successfully updated");
+    }
+  } catch (error) {
+    console.log(error);
   }
-}catch(error){
-console.log(error)
 }
-}
-
 
 function statusUpdateService(orderId) {
-  try{
-  const { status } = {
-    status: "pending",
-  };
-   if (!OrderSchema.ORDER_STATUS.includes(status)) {
-     throw "Invalid status";
-   }
-  if (!isEmpty(status)) {
-    updateOrder(orderId, { status });
-    console.log("status changed successfully");
+  try {
+    const { status } = {
+      status: "pending",
+    };
+    if (!OrderSchema.ORDER_STATUS.includes(status)) {
+      throw "Invalid status";
+    }
+    if (!isEmpty(status)) {
+      updateOrder(orderId, { status });
+      console.log("status changed successfully");
+    }
+  } catch (error) {
+    console.log(error);
   }
-}catch(error){
-  console.log(error)
 }
-}
-
 
 function orderDeleteService(orderId) {
   deleteOrder(orderId);

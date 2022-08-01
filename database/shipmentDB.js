@@ -16,5 +16,16 @@ const { selectOneOrder } = require("./OrderDB");
     }
   }
 
-  // console.log(shipping);
+exports.updateShipAddress = (shipmentId,{address = null}) => {
+    let shipping = readJson(process.env.SHIP_JSON);
+    const newShipAddress = shipping.map((ship) => {
+      if (ship.shipmentId == shipmentId) {
+        ship.address = address === null ? ship.address : address;
+      }
+      return ship;
+    });
+    writeFile(process.env.SHIP_JSON, newShipAddress);
+} 
+
+
 

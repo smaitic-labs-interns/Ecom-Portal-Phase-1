@@ -7,9 +7,9 @@ require("dotenv").config({ path: "../.env" });
 function productCreateService(title, description, price) {
   try{
   let product = new UserSchema ({
-    title: "fabric fix",
-    description: "Its a new brand name",
-    price: 1500,
+    title: "honda",
+    description: "car",
+    price: 500000
   })
   // console.log(title);
 
@@ -40,7 +40,7 @@ console.log(error);
 }
 
 function productSearchService() {
-  let title = "n";
+  let title = "a";
   let product = filterOneProductOnTitle(title);
   console.log(product);
 }
