@@ -8,12 +8,8 @@ exports.create = (obj) => {
   if (exists.length == 0) {
     user.push(obj);
     console.log(user);
-    try {
-      writeFile(process.env.USER_JSON, user);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
+    writeFile(process.env.USER_JSON, user);
+    return true;
   } else {
     console.error("Already registered please sign in");
   }
@@ -26,3 +22,7 @@ exports.selectOne = (email) => {
   let reader = readJson(process.env.USER_JSON);
   return reader.filter((user) => user.email === email);
 };
+exports.selectPassword = (password) => {
+  let readPassword = readJson(process.env.USER_JSON);
+  return readPassword.filter((user) => user.password === password);
+}

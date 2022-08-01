@@ -7,7 +7,7 @@ require("dotenv").config({ path: "../.env" });
 
 function cartCreateService(productId) {
   console.log(productId);
-
+try{
   if (!isEmpty(productId)) {
     console.log("here");
     let product = Product.selectOneProduct(productId);
@@ -22,7 +22,11 @@ function cartCreateService(productId) {
 
     createCart(cart.toJson());
   }
+}catch(error){
+  console.log(error)
 }
+}
+
 
 function cartDeleteService(cartId) {
   deleteCart(cartId);
@@ -30,6 +34,7 @@ function cartDeleteService(cartId) {
 }
 
 function addItemToCart() {
+  try{
   const { cartId, productId } = {
     cartId: "d3739569-3431-47c0-875d-9efa472f9cc2",
     productId: "152e66bd-e574-4e53-9e02-7220763e1deb",
@@ -46,7 +51,11 @@ function addItemToCart() {
   cart.products = [...cart.products, productId];
   console.log("cart", cart);
   updateCart(cart);
+}catch(error){
+console.log(error)
 }
+}
+
 
 cartCreateService("d89f1a25-4bfe-4be8-b5f5-8059c069fbdf");
 // addItemToCart();

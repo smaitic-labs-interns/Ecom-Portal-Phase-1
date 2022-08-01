@@ -1,6 +1,6 @@
 const uuid = require("uuid");
 const userId = uuid.v4();
-const {emailValidation, passwordEncrypt} = require('../utils/validator')
+const {emailValidation } = require('../utils/validator')
 
 class UserSchema {
   userId;
@@ -18,7 +18,7 @@ class UserSchema {
     }
     this.userId = userId;
     this.email = emailValidation(email);
-    this.password = passwordEncrypt(password);
+    this.password = password
     this.username = username;
   }
 

@@ -1,32 +1,20 @@
 [
   {
-    "userId": "f1cc08d4-4232-46ce-8574-6b5f5c5bd51c",
-    "username": "james",
-    "password": "asdfwsdf",
-    "email": "jerry13@gmail.com"
-  },
-  {
-    "userId": "3a7cbdde-b593-4fbc-b36e-78f1532e97f2",
-    "username": "james",
-    "password": "asdfwsdf",
-    "email": "puransir@gmail.com"
-  },
-  {
-    "userId": "d971f0a1-893e-4fda-abb6-0fb10664395d",
-    "username": "jacky",
-    "password": "$2b$10$WoJDPyiV0WY9VCbtNk76sOTy3urgYtpC3NG7lqWPcI1hZMFFjClBu",
-    "email": "jacyy@gmail.com"
-  },
-  {
-    "userId": "cba0a496-5751-4fb1-ae80-f76537901b4b",
-    "username": "jacky",
-    "password": "$2b$10$e.wd5JTqNdpDx32DnC3HUOtiZRphxPNR3wWOzOmrjLl.SVpZS.Kvu",
-    "email": "jac@gmail.com"
-  },
-  {
     "userId": "40b40598-cab9-42c8-8fed-779b4a4cf39b",
     "email": "jsadfac@gmail.com",
     "password": "$2b$10$dSlFY78OSbaNTR7cDK0jTe3s6FVWXZPWFexLv4.nDRQ/.0XA68MkW",
     "username": "jacky"
+  },
+  {
+    "userId": "b42f4467-48d3-4594-8ae8-b68938bb669c",
+    "email": "james@gmail.com",
+    "password": "$2b$10$w3JVIoDqXDmxi66qoZEY..29CqHPnQfa/6RkgtHENQUFkP.0KjwwK",
+    "username": "james"
+  },
+  {
+    "userId": "5fd8180c-7249-4c0e-8cd4-0168dfaa8b3f",
+    "email": "hari@gmail.com",
+    "password": "$2b$10$xO0Rw0/av54YqpSyP1TyOuttiA9FBN.qhxm/mG0OqiOQzAO.In7S2",
+    "username": "hari"
   }
 ]
