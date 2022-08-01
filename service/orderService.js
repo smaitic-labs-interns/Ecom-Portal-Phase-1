@@ -12,6 +12,8 @@ function orderCreateService(
   address,
   paymentMethod
 ) {
+
+  try {
   let order = new OrderSchema({
     orderedBy: "hello",
     itemName: "nom",
@@ -36,8 +38,14 @@ function orderCreateService(
     createOrder(order.toJson());
 }
 
+catch(error){
+  console.log(error);
+}
+}
+
 
 function orderUpdateService (orderId) {
+  try{
   const { quantity, address } = {
     quantity: 89,
     address: " Kathmandu",
@@ -47,10 +55,14 @@ function orderUpdateService (orderId) {
     updateOrder(orderId, { quantity, address });
     console.log("successfully updated");
   }
+}catch(error){
+console.log(error)
+}
 }
 
 
 function statusUpdateService(orderId) {
+  try{
   const { status } = {
     status: "pending",
   };
@@ -61,6 +73,9 @@ function statusUpdateService(orderId) {
     updateOrder(orderId, { status });
     console.log("status changed successfully");
   }
+}catch(error){
+  console.log(error)
+}
 }
 
 

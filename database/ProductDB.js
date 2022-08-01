@@ -7,16 +7,10 @@ exports.createProduct = (obj) => {
   const exists = product.filter((product) => {
     return product.title == obj.title;
   });
-  // console.log(exists)
   if (exists.length == 0) {
     product.push(obj);
-    // console.log(product);
-    try {
       writeFile(process.env.PRODUCT_JSON, product);
       return true;
-    } catch (error) {
-      console.log(error);
-    }
   } else {
     console.log("product already exists");
   }
@@ -43,7 +37,7 @@ exports.selectAllProduct = () => {
   return product;
 };
 
-exports.filterOneProduct = (title) => {
+exports.filterOneProductOnTitle = (title) => {
   let reader = readJson(process.env.PRODUCT_JSON);
   return reader.filter((product) => product.title.includes(title));
 };

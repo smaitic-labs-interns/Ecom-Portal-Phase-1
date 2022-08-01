@@ -4,19 +4,13 @@ const { selectOneOrderService } = require("./OrderDB");
 
   exports.create = (obj, orderId) => {
     let ship = readJson(process.env.SHIP_JSON);
-
     let orderExists = selectOneOrderService(orderId).length <= 0 ? false : selectOneOrderService(orderId)[0];
-
     console.log(orderExists);
     if (orderExists && orderExists.status == "paid") {    
       ship.push(obj);
       console.log(ship);
-      try {
         writeFile(process.env.SHIP_JSON, ship);
         return true;
-      } catch (error) {
-        console.log(error);
-      }
     } else {
       throw "Either order or status is not paid";
     }

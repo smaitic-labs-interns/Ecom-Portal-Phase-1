@@ -1,12 +1,13 @@
 const UserSchema = require("../model/UserModel");
 const { create } = require("../database/UserDB");
+const { passwordEncrypt } = require('../utils/validator');
 require("dotenv").config({ path: "../.env" });
 
 function signup() {
   let user = new UserSchema ({
-    username: "jacky",
-    email: "jsadfac@gmail.com",
-    password:"hello"
+    username: "hari",
+    email: "hari@gmail.com",
+    password:passwordEncrypt("nice")
   });
 
   create(user);
