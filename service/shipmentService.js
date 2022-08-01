@@ -5,7 +5,7 @@ require("dotenv").config({ path: "../.env" });
 function createShipmentService(orderId, status) {
   try {
     let ship = new Shipment({
-      orderId: "d706d742-9473-4a90-afd0-7093eb706ac5",
+      orderId: "6bfe0d81-c36d-443a-b71f-15d08a91fcea",
       status: "paid",
     });
     console.log(orderId, status);
