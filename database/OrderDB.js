@@ -1,5 +1,4 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-const OrderSchema = require("../model/OrderModel");
 
 exports.createOrder = (obj) => {
   let order = readJson(process.env.ORDER_JSON);
@@ -8,13 +7,12 @@ exports.createOrder = (obj) => {
   return order
 };
 
-exports.updateOrder = (orderId,{quantity = null,address = null,status = null}
+exports.updateOrder = (orderId,{quantity = null,status = null}
 ) => {
   let orders = readJson(process.env.ORDER_JSON);
   const newOrders = orders.map((order) => {
     if (order.orderId == orderId) {
       order.quantity = quantity === null ? order.quantity : quantity;
-      order.address = address === null ? order.address : address;
       order.status = status === null ? order.status : status;   
     }
     return order;

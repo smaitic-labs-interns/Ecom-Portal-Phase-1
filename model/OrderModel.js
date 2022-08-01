@@ -11,7 +11,6 @@
   itemName;
   quantity;
   itemPrice;
-  address;
   paymentMethod;
   status;
   constructor({
@@ -19,7 +18,6 @@
     itemName,
     quantity,
     itemPrice,
-    address,
     paymentMethod,
     status,
   }) {
@@ -28,7 +26,6 @@
     this.itemName = itemName;
     this.quantity = quantity;
     this.itemPrice = itemPrice;
-    this.address = address;
     this.paymentMethod = paymentMethod;
     OrderSchema.PaymentType.includes(paymentMethod)
     //   this.paymentMethod = paymentMethod;
@@ -49,7 +46,6 @@
       itemName: this.itemName,
       quantity: this.quantity,
       itemPrice: this.itemPrice,
-      address: this.address,
       paymentMethod: this.paymentMethod,
       status: this.status,
     };
