@@ -20,12 +20,12 @@
     "status": "paid"
   },
   {
-    "orderId": "2d6a00de-0154-4fcf-8aa3-0e98d7d25660",
+    "orderId": "af27f627-b988-4e2e-9402-0f39ac0ea7cc",
     "orderedBy": "hello",
     "itemName": "nom",
     "quantity": 1,
     "itemPrice": 100,
     "paymentMethod": "cash",
-    "status": "pending"
+    "status": "paid"
   }
 ]

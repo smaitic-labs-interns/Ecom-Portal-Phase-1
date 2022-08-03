@@ -1,12 +1,11 @@
-const fs = require('fs')
+const {readFile, writeFile} = require('fs/promises')
 
-exports.readJson = (file_path)=>{
-    let string = fs.readFileSync(file_path, "utf-8");
-    let json = JSON.parse(string);
-    return json;
+exports.readJson = async (file_path)=>{
+ let string =  await readFile(file_path, "utf-8");
+    return JSON.parse(string)
 }
 
-exports.writeFile = (file_path, data) => {
-    fs.writeFileSync(file_path, JSON.stringify(data))
+exports.writeFile = async (file_path, data) => {
+     await writeFile(file_path, JSON.stringify(data))
 }
 

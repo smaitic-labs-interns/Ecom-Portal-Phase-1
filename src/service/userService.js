@@ -7,7 +7,7 @@ function signup() {
   try{
   let user = new UserSchema({
     username: "hari",
-    email: "any@gmail.com",
+    email: "new@gmail.com",
     password: "nice",
   });
     create(user);
@@ -15,23 +15,23 @@ function signup() {
   throw error
 }
 }
-signup();
+// signup();
 
-function login() {
+async function login() {
   try {
-    let email = "any@gmail.com";
+    let email = "new@gmail.com";
     let password = "nice";
-    let user = selectOne(email);
+    let user = await selectOne(email);
     // console.log(user)
     if (user && bcrypt.compareSync(password, user[0].password))
       console.log("you are logged in");
     else console.log("password invalid credential");
   } catch (error) {
-    console.log(error);
+  throw error
   }
 }
 
 
-// login();
+login();
 
 

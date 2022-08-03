@@ -1,7 +1,8 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
 
-exports.create = (obj) => {
-  let user = readJson(process.env.USER_JSON);
+exports.create = async (obj) => {
+  try{
+  let user = await readJson(process.env.USER_JSON);
   const exists = user.filter((user) => {
     return user.email == obj.email;
   });
@@ -13,13 +14,17 @@ exports.create = (obj) => {
   } else {
     console.error("Already registered please sign in");
   }
+}
+  catch(error){
+    throw error
+  }
 };
-exports.selectAll = () => {
-  const user = readJson(process.env.USER_JSON);
+exports.selectAll = async() => {
+  const user = await readJson(process.env.USER_JSON);
   return user;
 };
-exports.selectOne = (email) => {
-  let reader = readJson(process.env.USER_JSON);
+exports.selectOne = async (email) => {
+  let reader = await readJson(process.env.USER_JSON);
   return reader.filter((user) => user.email === email);
 };
 exports.selectPassword = (password) => {
