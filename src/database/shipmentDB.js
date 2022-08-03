@@ -2,10 +2,11 @@ const { readJson, writeFile } = require("../utils/fileHandling");
 const { selectOneOrder } = require("./OrderDB");
 
 
-  exports.create = (obj, orderId) => {
-    let ship = readJson(process.env.SHIP_JSON);
-    let orderExists = selectOneOrder(orderId).length <= 0 ? false : selectOneOrder(orderId)[0];
-    console.log(orderExists);
+  exports.create = async (obj, orderId) => {
+    try{
+    let ship =  await readJson(process.env.SHIP_JSON);
+    let orderExists = await selectOneOrder(orderId).length <= 0 ? false : selectOneOrder(orderId)[0];
+    console.log(orderExists, 'sadf');
     if (orderExists && orderExists.status == "paid") {    
       ship.push(obj);
       console.log(ship);
@@ -14,10 +15,14 @@ const { selectOneOrder } = require("./OrderDB");
     } else {
       throw "Either orderId is not found or status is not paid";
     }
+  }catch(error){
+    throw error
+  }
   }
 
-exports.updateShipAddress = (shipmentId,{address = null}) => {
-    let shipping = readJson(process.env.SHIP_JSON);
+exports.updateShipAddress = async (shipmentId,{address = null}) => {
+  try {
+    let shipping = await readJson(process.env.SHIP_JSON);
     const newShipAddress = shipping.map((ship) => {
       if (ship.shipmentId == shipmentId) {
         ship.address = address === null ? ship.address : address;
@@ -25,6 +30,10 @@ exports.updateShipAddress = (shipmentId,{address = null}) => {
       return ship;
     });
     writeFile(process.env.SHIP_JSON, newShipAddress);
+  } catch (error) {
+    throw error
+  }
+    
 } 
 
 

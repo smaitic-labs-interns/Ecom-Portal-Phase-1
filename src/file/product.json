@@ -35,5 +35,19 @@
     "description": "car",
     "price": 500000,
     "quantity": 10
+  },
+  {
+    "productId": "d4413202-44b3-4ced-8f25-f66c985aee6c",
+    "title": "bmw",
+    "description": "car",
+    "price": 300000,
+    "quantity": 10
+  },
+  {
+    "productId": "32b9e9e7-20de-49ef-a561-1bce2ed18c24",
+    "title": "lambo",
+    "description": "car",
+    "price": 5400241,
+    "quantity": 10
   }
 ]

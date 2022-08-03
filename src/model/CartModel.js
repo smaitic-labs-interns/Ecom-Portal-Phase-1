@@ -20,12 +20,15 @@ class CartSchema{
       cartId: this.cartId,
       userId: this.userId,
       products: this.products,
-      quantity: this.quantity
     };
   }
   addProduct(productId ,quantity) {
+    const newProd = {
+      productId,
+      quantity
+    }
     console.log("inside products addition");
-    this.products.push(productId, quantity);
+    this.products.push(newProd);
   }
 }
 
