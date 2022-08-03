@@ -1,0 +1,39 @@
+[
+  {
+    "productId": "3173ba54-ede1-46cb-a404-a5b2dfd71ff1",
+    "title": "jordan",
+    "description": "nice shoe",
+    "price": 1200
+  },
+  {
+    "productId": "eaabbce2-270a-49bd-9bbd-42663e870b94",
+    "title": "nike",
+    "description": " shoe",
+    "price": 12000
+  },
+  {
+    "productId": "914951ba-04d5-411b-967f-46a6f3a20039",
+    "title": "louis",
+    "description": " perfume",
+    "price": 2000
+  },
+  {
+    "productId": "2ba3a622-0c2c-426a-b21b-74c971fc59cb",
+    "title": "fabric fix",
+    "description": "clothes",
+    "price": 1500
+  },
+  {
+    "productId": "f9af859e-6de1-4c89-b892-9a6ba34a231c",
+    "title": "honda",
+    "description": "car",
+    "price": 500000
+  },
+  {
+    "productId": "303b9a8d-893c-4a16-b8be-5a1a9ce21587",
+    "title": "toyota",
+    "description": "car",
+    "price": 500000,
+    "quantity": 10
+  }
+]
