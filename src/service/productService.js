@@ -1,13 +1,13 @@
 const {
   createProduct,
-  filterOneProductOnTitle,
   updateProduct,
   deleteProduct,
+  filterOneProductOnSearch,
 } = require("../database/ProductDB");
 const UserSchema = require("../model/ProductModel");
-
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
+
 
 function productCreateService(title, description, price, quantity) {
   try {
@@ -48,9 +48,9 @@ function productUpdateService(_productId) {
     throw error
   }
 }
-async function productSearchService() {
-  let search = "car";
-  let product = await filterOneProductOnTitle(search);
+async function productSearchService(search) {
+  // let search = "car";
+  let product = await filterOneProductOnSearch(search);
   console.log("query result", product);
 }
 
@@ -58,6 +58,6 @@ function deleteProductService(productId) {
   deleteProduct(productId);
 }
 productCreateService();
-// productSearchService();
+// productSearchService('car');
 // deleteProductService("67434be2-d9d4-40df-a496-643e07951e45");
 // productUpdateService("67434be2-d9d4-40df-a496-643e07951e45");

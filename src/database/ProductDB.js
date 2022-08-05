@@ -48,7 +48,7 @@ exports.selectAllProduct = () => {
   return product;
 };
 
-exports.filterOneProductOnTitle = async (query) => {
+exports.filterOneProductOnSearch = async (query) => {
   try {
       let reader = await readJson(process.env.PRODUCT_JSON);
       const data = reader.filter((product) => {
@@ -60,17 +60,22 @@ exports.filterOneProductOnTitle = async (query) => {
       return data;
   } catch (error) {
     throw error  }
-
 };
+
 exports.selectOneProduct = async (productId) => {
   let reader = await readJson(process.env.PRODUCT_JSON);
   return reader.filter((product) => product.productId === productId);
 };
 
 exports.deleteProduct = async (productId) => {
-  let product = await readJson(process.env.PRODUCT_JSON);
-  const products = product.filter((product) => {
-    return product.productId !== productId;
-  });
-  writeFile(process.env.PRODUCT_JSON, products);
+  try {
+      let product = await readJson(process.env.PRODUCT_JSON);
+      const products = product.filter((product) => {
+        return product.productId !== productId;
+      });
+      writeFile(process.env.PRODUCT_JSON, products);
+  } catch (error) {
+    throw error
+  }
+
 };

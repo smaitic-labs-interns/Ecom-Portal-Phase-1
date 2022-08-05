@@ -3,7 +3,7 @@ const Shipment = require("../model/shipmentModel");
 require("dotenv").config({ path: "../.env" });
 const {isEmpty} = require('../utils/validator');
 
-async function createShipmentService(orderId, status) {
+ function createShipmentService(orderId, status) {
   try {
     let ship = new Shipment({
       orderId: "af27f627-b988-4e2e-9402-0f39ac0ea7cc",
@@ -13,7 +13,7 @@ async function createShipmentService(orderId, status) {
       status: "paid",
     });
     console.log(orderId, status);
-   await create(ship.toJson(), ship.orderId);
+   create(ship.toJson(), ship.orderId);
   } catch (error) {
     throw error
   }

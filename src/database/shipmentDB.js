@@ -1,22 +1,27 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-const { selectOneOrder } = require("./OrderDB");
+const { selectOneOrder } = require('../database/OrderDB');
+
 
 
   exports.create = async (obj, orderId) => {
     try{
     let ship =  await readJson(process.env.SHIP_JSON);
-    let orderExists = await selectOneOrder(orderId).length <= 0 ? false : selectOneOrder(orderId)[0];
+    
+    let reader = await readJson(process.env.ORDER_JSON)
+    let orderExists = reader.filter((order) => order.orderId === orderId)
+    console.log(ship);
+    // let orderExists = await selectOneOrder(orderId).length <= 0 ? false : selectOneOrder(orderId)[0];
     console.log(orderExists, 'sadf');
     if (orderExists && orderExists.status == "paid") {    
-      ship.push(obj);
-      console.log(ship);
-        writeFile(process.env.SHIP_JSON, ship);
-        return true;
+      let newShip = ship.push(obj)
+      console.log(newShip,'jkhjh');  
+     await writeFile(process.env.SHIP_JSON, ship);
+        // return true;
     } else {
       throw "Either orderId is not found or status is not paid";
     }
   }catch(error){
-    throw error
+    console.log(error)
   }
   }
 
