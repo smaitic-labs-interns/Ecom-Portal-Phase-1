@@ -4,7 +4,6 @@ const {
   deleteOrder,
 } = require("../database/OrderDB");
 const OrderSchema = require("../model/orderModel");
-
 const { isEmpty } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
@@ -79,7 +78,6 @@ function orderDeleteService(orderId) {
  } catch (error) {
   throw error
  } 
- 
 }
 
 // orderUpdateService("013610fd-435e-4912-aab0-e1c0f1d492ee");

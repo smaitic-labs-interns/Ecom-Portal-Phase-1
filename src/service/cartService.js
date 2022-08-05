@@ -2,8 +2,8 @@ const { createCart, deleteCart, updateCart, cartSelectOne } = require("../databa
 const { selectOneProduct } = require("../database/ProductDB");
 const CartSchema = require("../model/CartModel");
 const { isEmpty } = require("../utils/validator");
-
 require("dotenv").config({ path: "../.env" });
+
 
 function cartCreateService(productId, userId, quantity) {
   console.log(productId);
@@ -38,13 +38,13 @@ function cartDeleteService(cartId) {
   }
 }
 
-async function addItemToCart() {
+function addItemToCart() {
   try{
   const { cartId, productId } = {
     cartId: "ca1da67e-29c0-41cb-8bf1-0558779291ef",
     productId: "152e66bd-e574-4e53-9e02-7220763e1deb",
   };
-  let cart = await cartSelectOne(cartId)[0];
+  let cart = cartSelectOne(cartId)[0];
   console.log(cart,'sss');
   let products = cart.products;
   let exists =
@@ -64,7 +64,7 @@ async function addItemToCart() {
 // cartCreateService(
 //   "303b9a8d-893c-4a16-b8be-5a1a9ce21587",
 //   "e954cb30-ac05-4943-9b42-d156943de2a3",
-//   185
+//   15
 // );
 addItemToCart();
 // cartDeleteService("89d3e2a7-2bbb-4b72-b2b6-f9125f24f23d");

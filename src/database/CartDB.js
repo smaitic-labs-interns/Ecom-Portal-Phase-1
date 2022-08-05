@@ -19,7 +19,7 @@ exports.cartSelectAll = () => {
 
 exports.cartSelectOne = async (cartId) => {
     let carts = await readJson(process.env.CART_JSON);
-    console.log(carts,'snn');
+    // console.log(carts,'snn');
     return carts.filter((cart) => cart.cartId == cartId);
 };
 
@@ -34,8 +34,6 @@ exports.updateCart = async (obj) => {
   } catch (error) {
     throw error
   }
-  
-  
 };
 
 exports.deleteCart = async (cartId) => {
