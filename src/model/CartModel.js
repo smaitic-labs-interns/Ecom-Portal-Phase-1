@@ -1,14 +1,14 @@
 const uuid = require("uuid");
 const cartId = uuid.v4();
 
-class CartSchema{
-  
+class CartSchema {
   cartId;
   userId;
   quantity;
-  products = [];
+  products = [
+  ];
 
-  constructor({ productId,userId, quantity }) {
+  constructor({ productId, userId, quantity }) {
     this.cartId = cartId;
     this.userId = userId;
     this.quantity = quantity;
@@ -22,11 +22,11 @@ class CartSchema{
       products: this.products,
     };
   }
-  addProduct(productId ,quantity) {
+  addProduct(productId, quantity) {
     const newProd = {
       productId,
-      quantity
-    }
+      quantity,
+    };
     console.log("inside products addition");
     this.products.push(newProd);
   }
