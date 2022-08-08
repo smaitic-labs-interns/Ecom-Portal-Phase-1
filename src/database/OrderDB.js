@@ -44,7 +44,7 @@ exports.deleteOrder = async (orderId) => {
 exports.selectOneOrder = async (orderId) => {
   try {
      let reader = await readJson(process.env.ORDER_JSON);
-     return reader.filter((order) => order.orderId === orderId);
+     return reader.filter((order) => order.orderId === orderId)[0];
   } catch (error) {
    throw error 
   }
