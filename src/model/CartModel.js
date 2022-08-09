@@ -5,8 +5,7 @@ class CartSchema {
   cartId;
   userId;
   quantity;
-  products = [
-  ];
+  products = [];
 
   constructor({ productId, userId, quantity }) {
     this.cartId = cartId;

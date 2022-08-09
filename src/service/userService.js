@@ -1,16 +1,20 @@
 const UserSchema = require("../model/UserModel");
 const { create, selectOne } = require("../database/UserDB");
 const bcrypt = require("bcrypt");
+const {mongoConnect} =require('../connectDatabase/mongoConnect')
 require("dotenv").config({ path: "../.env" });
 
-function signup() {
+mongoConnect()
+
+async function signup() {
   try{
   let user = new UserSchema({
     username: "hari",
-    email: "new@gmail.com",
+    email: "myself@gmail.com",
     password: "nice",
   });
-    create(user);
+  console.log(user);
+    await create(user);
 }catch(error){
   throw error
 }
@@ -32,6 +36,6 @@ async function login() {
 }
 
 
-login();
+// login();
 
 
