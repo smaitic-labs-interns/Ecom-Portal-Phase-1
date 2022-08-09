@@ -1,19 +1,31 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
+const {emailValidation} = require('../utils/validator')
+const User = require('../model/UserModel')
 
-exports.create = async (obj) => {
+
+exports.create = async (user) => {
   try{
-  let user = await readJson(process.env.USER_JSON);
-  const exists = user.filter((user) => {
-    return user.email == obj.email;
-  });
-  if (exists.length == 0) {
-    user.push(obj);
-    console.log(user);
-    writeFile(process.env.USER_JSON, user);
-    return true;
-  } else {
-    console.error("Already registered please sign in");
-  }
+    let validEmail = emailValidation(user.email);
+    console.log((validEmail));
+    const existsEmail = await User.findOne({email:user.email})
+    if(existsEmail){
+      console.log('email already exists');
+    }
+    else{
+  await User.create(user)
+    }
+  // let user = await readJson(process.env.USER_JSON);
+  // const exists = user.filter((user) => {
+  //   return user.email == obj.email;
+  // });
+  // if (exists.length == 0) {
+  //   user.push(obj);
+  //   console.log(user);
+  //   writeFile(process.env.USER_JSON, user);
+  //   return true;
+  // } else {
+  //   console.error("Already registered please sign in");
+  // }
 }
   catch(error){
     throw error
