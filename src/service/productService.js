@@ -4,52 +4,53 @@ const {
   deleteProduct,
   filterOneProductOnSearch,
 } = require("../database/ProductDB");
-const UserSchema = require("../model/ProductModel");
+const Product = require("../model/ProductModel");
 const { isEmpty } = require("../utils/validator");
+const { mongoConnect } = require("../connectDatabase/mongoConnect");
 require("dotenv").config({ path: "../.env" });
 
-
-function productCreateService(title, description, price, quantity) {
+mongoConnect();
+async function productCreateService(title, description, quantity, price) {
   try {
-    let product = new UserSchema({
-      title: "lambo",
+    let product = new Product({
+      title: "nike",
       description: "car",
-      quantity: 10,
-      price: 5400241,
+      quantity: "20",
+      price: "5401",
     });
-    // console.log(title);
-
     if (
       !isEmpty(title) &&
       !isEmpty(description) &&
-      !isEmpty(price) &&
-      !isEmpty(quantity)
+      !isEmpty(quantity) &&
+      !isEmpty(price)
     ) {
-      createProduct(product);
+      await createProduct(product);
     }
   } catch (error) {
-   throw error
+    throw error;
   }
 }
 
-function productUpdateService(_productId) {
+async function productUpdateService(id) {
   try {
-    const { title, description, price } = {
-      title: "newone",
+    const { title, description, price, quantity } = {
+      title: "new",
       description: "lorem 3",
     };
-    updateProduct(_productId.trim(), {
-      title: title === undefined ? null : title.trim(),
-      description: description === undefined ? null : description.trim(),
-      price: price === undefined ? null : price,
-    });
-    console.log("updated successfully");
+    var id;
+    const productID = await Product.findById(id);
+    console.log(productID);
+    if (!productID) {
+      console.error("productId does not exists ");
+    } else {
+      await updateProduct(title, description, price, quantity);
+      console.log("updated");
+    }
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 async function productSearchService(search) {
-  // let search = "car";
   let product = await filterOneProductOnSearch(search);
   console.log("query result", product);
 }
@@ -58,6 +59,6 @@ function deleteProductService(productId) {
   deleteProduct(productId);
 }
 productCreateService();
-// productSearchService('car');
-// deleteProductService("67434be2-d9d4-40df-a496-643e07951e45");
-// productUpdateService("67434be2-d9d4-40df-a496-643e07951e45");
+// productSearchService('i');
+// deleteProductService("62f2746358d45e941ebc0809");
+// productUpdateService("62f259fa387782b4241270ee");

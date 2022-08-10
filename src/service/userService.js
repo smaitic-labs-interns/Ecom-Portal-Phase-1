@@ -1,41 +1,42 @@
-const UserSchema = require("../model/UserModel");
+const User= require("../model/UserModel");
 const { create, selectOne } = require("../database/UserDB");
+const { passwordEncrypt } = require("../utils/validator");
 const bcrypt = require("bcrypt");
-const {mongoConnect} =require('../connectDatabase/mongoConnect')
+const { mongoConnect } = require("../connectDatabase/mongoConnect");
 require("dotenv").config({ path: "../.env" });
 
-mongoConnect()
+mongoConnect();
 
 async function signup() {
-  try{
-  let user = new UserSchema({
-    username: "hari",
-    email: "myself@gmail.com",
-    password: "nice",
-  });
-  console.log(user);
+  try {
+    let user = new User({
+      username: "hari",
+      email: "james@gmail.com",
+      password: passwordEncrypt("nice"),
+    });
+    console.log(user);
     await create(user);
-}catch(error){
-  throw error
+  } catch (error) {
+    throw error;
+  }
 }
-}
-// signup();
+signup();
 
 async function login() {
   try {
-    let email = "new@gmail.com";
-    let password = "nice";
+    const { email, password } = {
+      email: "hari@gmail.com",
+      password: "nice",
+    };
+
     let user = await selectOne(email);
-    // console.log(user)
-    if (user && bcrypt.compareSync(password, user[0].password))
+    console.log(user)
+    if (user && bcrypt.compareSync(password, user.password))
       console.log("you are logged in");
-    else console.log("password invalid credential");
+    else console.log("email or password invalid");
   } catch (error) {
-  throw error
+    throw error;
   }
 }
 
-
 // login();
-
-

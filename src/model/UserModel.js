@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
-// const {emailValidation} = require('../utils/validator')
 
 const UserSchema = new mongoose.Schema({
   username: {type: String},
   email: {type: String},
   password: {type: String}
-  
 },{timestamps: true});
+
 const User = mongoose.model("user", UserSchema);
 module.exports = User;
 

@@ -1,15 +1,16 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-const {emailValidation} = require('../utils/validator')
+const { emailValidation} = require('../utils/validator')
 const User = require('../model/UserModel')
+
 
 
 exports.create = async (user) => {
   try{
-    let validEmail = emailValidation(user.email);
-    console.log((validEmail));
     const existsEmail = await User.findOne({email:user.email})
-    if(existsEmail){
+    console.log(existsEmail,'ssss');
+    if(!emailValidation(user.email) || existsEmail){
       console.log('email already exists');
+      
     }
     else{
   await User.create(user)
@@ -31,15 +32,20 @@ exports.create = async (user) => {
     throw error
   }
 };
-exports.selectAll = async() => {
-  const user = await readJson(process.env.USER_JSON);
-  return user;
-};
+// exports.selectAll = async() => {
+//   const user = await readJson(process.env.USER_JSON);
+//   return user;
+// };
 exports.selectOne = async (email) => {
-  let reader = await readJson(process.env.USER_JSON);
-  return reader.filter((user) => user.email === email);
+  let reader = await User.findOne({email})
+  return reader
 };
-exports.selectPassword = (password) => {
-  let readPassword = readJson(process.env.USER_JSON);
-  return readPassword.filter((user) => user.password === password);
-}
+
+// exports.selectOne = async (email) => {
+//   let reader = await readJson(process.env.USER_JSON);
+//   return reader.filter((user) => user.email === email);
+// };
+// exports.selectPassword = (password) => {
+//   let readPassword = readJson(process.env.USER_JSON);
+//   return readPassword.filter((user) => user.password === password);
+// }
