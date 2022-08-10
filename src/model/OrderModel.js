@@ -1,9 +1,7 @@
- const uuid = require("uuid");
- const orderId = uuid.v4();
+const uuid = require("uuid");
+const orderId = uuid.v4();
 
-
- 
- class OrderSchema{
+class OrderSchema {
   static ORDER_STATUS = ["paid", "delivered", "pending", "cancel"];
   static PaymentType = ["cash", "card", "paypal"];
   orderId;
@@ -27,7 +25,7 @@
     this.quantity = quantity;
     this.itemPrice = itemPrice;
     this.paymentMethod = paymentMethod;
-    OrderSchema.PaymentType.includes(paymentMethod)
+    OrderSchema.PaymentType.includes(paymentMethod);
     if (OrderSchema.ORDER_STATUS.includes(status)) {
       this.status = status;
     } else {

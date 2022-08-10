@@ -1,65 +1,64 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-// const uuid = require("uuid");
-// const productId = uuid.v4();
+const Product = require("../model/ProductModel");
+const { default: mongoose } = require("mongoose");
 
-exports.createProduct = async (obj) => {
+exports.createProduct = async (product) => {
   try {
-    let product = await readJson(process.env.PRODUCT_JSON);
-    const exists = product.filter((product) => {
-      return product.title == obj.title;
-    });
-    if (exists.length == 0) {
-      product.push(obj);
-      writeFile(process.env.PRODUCT_JSON, product);
-      return true;
+    let productExists = await Product.findOne({ title: product.title });
+    console.log(productExists);
+    if (productExists) {
+      console.log("product exists");
     } else {
-      throw "product already exists";
+      await Product.create(product);
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-  
 };
 
-exports.updateProduct = async (
-  _productId,
-  { title = null, description = null, price = null }
-) => {
+exports.updateProduct = async (title, description, quantity, price) => {
   try {
-      let product = await readJson(process.env.PRODUCT_JSON);
-      const newProduct = product.map((prod) => {
-        if (prod.productId == _productId) {
-          prod.title = title === null ? prod.title : title;
-          prod.description =
-            description === null ? prod.description : description;
-          prod.price = price === null ? prod.price : price;
-        }
-        return prod;
-      });
-      writeFile(process.env.PRODUCT_JSON, newProduct);
+    const updateProduct = await Product.updateMany({
+      title,
+      description,
+      quantity,
+      price,
+    });
+    return updateProduct;
+    // let product = await readJson(process.env.PRODUCT_JSON);
+    // const newProduct = product.map((prod) => {
+    //   if (prod.productId == _productId) {
+    //     prod.title = title === null ? prod.title : title;
+    //     prod.description =
+    //       description === null ? prod.description : description;
+    //     prod.price = price === null ? prod.price : price;
+    //   }
+    //   return prod;
+    // });
+    // writeFile(process.env.PRODUCT_JSON, newProduct);
   } catch (error) {
-    throw error
+    throw error;
   }
-
 };
 
-exports.selectAllProduct = () => {
-  const product = readJson(process.env.PRODUCT_JSON);
-  return product;
-};
+// exports.selectAllProduct = () => {
+//   const product = readJson(process.env.PRODUCT_JSON);
+//   return product;
+// };
 
 exports.filterOneProductOnSearch = async (query) => {
   try {
-      let reader = await readJson(process.env.PRODUCT_JSON);
-      const data = reader.filter((product) => {
-        let search = product.title + " " + product.description;
-        if (search.includes(query)) {
-          return product;
-        }
-      });
-      return data;
+    let reader = await Product.find()
+    const data = reader.filter((product) => {
+      let search = product.title + " " + product.description;
+      if (search.includes(query)) {
+        return product;
+      }
+    });
+    return data;
   } catch (error) {
-    throw error  }
+    throw error;
+  }
 };
 
 exports.selectOneProduct = async (productId) => {
@@ -69,13 +68,12 @@ exports.selectOneProduct = async (productId) => {
 
 exports.deleteProduct = async (productId) => {
   try {
-      let product = await readJson(process.env.PRODUCT_JSON);
-      const products = product.filter((product) => {
-        return product.productId !== productId;
-      });
-      writeFile(process.env.PRODUCT_JSON, products);
+    let product = await Product.findByIdAndDelete(productId)
+    // const products = product.filter((product) => {
+    //   return product.productId !== productId;
+    // });
+    // writeFile(process.env.PRODUCT_JSON, products)
   } catch (error) {
-    throw error
+    throw error;
   }
-
 };
