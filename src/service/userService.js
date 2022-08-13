@@ -10,9 +10,9 @@ mongoConnect();
 async function signup() {
   try {
     let user = new User({
-      username: "hari",
-      email: "james@gmail.com",
-      password: passwordEncrypt("nice"),
+      username: "ram",
+      email: "ram@gmail.com",
+      password: passwordEncrypt("good"),
     });
     console.log(user);
     await create(user);

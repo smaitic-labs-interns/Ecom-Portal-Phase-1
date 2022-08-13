@@ -1,6 +1,6 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
 const Product = require("../model/ProductModel");
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 
 exports.createProduct = async (product) => {
   try {
@@ -18,13 +18,13 @@ exports.createProduct = async (product) => {
 
 exports.updateProduct = async (title, description, quantity, price) => {
   try {
-    const updateProduct = await Product.updateMany({
+    const productUpdate = await Product.updateOne({
       title,
       description,
       quantity,
       price,
     });
-    return updateProduct;
+    return productUpdate;
     // let product = await readJson(process.env.PRODUCT_JSON);
     // const newProduct = product.map((prod) => {
     //   if (prod.productId == _productId) {
@@ -48,7 +48,7 @@ exports.updateProduct = async (title, description, quantity, price) => {
 
 exports.filterOneProductOnSearch = async (query) => {
   try {
-    let reader = await Product.find()
+    let reader = await Product.find();
     const data = reader.filter((product) => {
       let search = product.title + " " + product.description;
       if (search.includes(query)) {
@@ -68,7 +68,8 @@ exports.selectOneProduct = async (productId) => {
 
 exports.deleteProduct = async (productId) => {
   try {
-    let product = await Product.findByIdAndDelete(productId)
+    let product = await Product.findByIdAndDelete(productId);
+    return product;
     // const products = product.filter((product) => {
     //   return product.productId !== productId;
     // });
