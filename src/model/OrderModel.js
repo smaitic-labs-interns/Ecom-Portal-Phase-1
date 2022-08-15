@@ -1,28 +1,20 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-// export const OrderStatus = ["pending", "paid", "canceled", "delivered"];
-// export const PaymentMethod = ["cash, card, paypal"] 
-
-const OrderSchema = new mongoose.Schema(
+const OrderSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     productId: { type: Schema.Types.ObjectId, ref: "product" },
+
     status: {
       type: String,
-      enum: OrderStatus,
+      enum: ['pending', 'paid', 'canceled', 'delivered'],
       default: "pending",
-      function() {
-        if (!OrderStatus) return "require right status";
-      },
     },
+
     paymentType: {
       type: String,
-      enum: PaymentMethod,
-      function() {
-        if (!PaymentMethod) {
-          return "require payment type";
-        }
-      },
+      enum: ["cash", "card", "paypal"],
     },
     quantity: { type: Number },
     price: { type: Number },
@@ -32,9 +24,6 @@ const OrderSchema = new mongoose.Schema(
 
 const Order = mongoose.model("order", OrderSchema);
 module.exports = Order;
-
-
-
 
 // const uuid = require("uuid");
 // const orderId = uuid.v4();
@@ -63,7 +52,7 @@ module.exports = Order;
 //     this.quantity = quantity;
 //     this.itemPrice = itemPrice;
 //     this.paymentMethod = paymentMethod;
-//     OrderSchema.PaymentType.includes(paymentMethod);
+    // OrderSchema.PaymentType.includes(paymentMethod);
 //     if (OrderSchema.ORDER_STATUS.includes(status)) {
 //       this.status = status;
 //     } else {

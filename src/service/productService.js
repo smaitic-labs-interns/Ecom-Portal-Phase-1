@@ -17,7 +17,7 @@ async function productCreateService(title, description, quantity, price) {
       title: "T-shirt",
       description: "clothes",
       quantity: 10,
-      price: 50000
+      price: 50000,
     });
     if (
       !isEmpty(title) &&
@@ -39,12 +39,12 @@ async function productUpdateService(id) {
       description: "shoes",
     };
     const productID = await Product.findById(id);
-    console.log(productID,'search');
+    console.log(productID, "search");
     if (productID) {
-       await updateProduct(title, description, price, quantity);
-       console.log("updated");
+      await updateProduct(title, description, price, quantity);
+      console.log("updated");
     } else {
-        console.log("productId does not exists ");
+      console.log("productId does not exists ");
     }
   } catch (error) {
     throw error;
