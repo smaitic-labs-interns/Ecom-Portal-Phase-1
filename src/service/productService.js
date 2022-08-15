@@ -7,16 +7,17 @@ const {
 const Product = require("../model/ProductModel");
 const { isEmpty } = require("../utils/validator");
 const { mongoConnect } = require("../connectDatabase/mongoConnect");
+const { listenerCount } = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
 
 mongoConnect();
 async function productCreateService(title, description, quantity, price) {
   try {
     let product = new Product({
-      title: "nike",
-      description: "car",
-      quantity: "20",
-      price: "5401",
+      title: "T-shirt",
+      description: "clothes",
+      quantity: 10,
+      price: 50000,
     });
     if (
       !isEmpty(title) &&
@@ -34,17 +35,16 @@ async function productCreateService(title, description, quantity, price) {
 async function productUpdateService(id) {
   try {
     const { title, description, price, quantity } = {
-      title: "new",
-      description: "lorem 3",
+      title: "jordan",
+      description: "shoes",
     };
-    var id;
     const productID = await Product.findById(id);
-    console.log(productID);
-    if (!productID) {
-      console.error("productId does not exists ");
-    } else {
+    console.log(productID, "search");
+    if (productID) {
       await updateProduct(title, description, price, quantity);
       console.log("updated");
+    } else {
+      console.log("productId does not exists ");
     }
   } catch (error) {
     throw error;
@@ -59,6 +59,6 @@ function deleteProductService(productId) {
   deleteProduct(productId);
 }
 productCreateService();
-// productSearchService('i');
-// deleteProductService("62f2746358d45e941ebc0809");
-// productUpdateService("62f259fa387782b4241270ee");
+// productSearchService('r');
+// deleteProductService("62f7a9d2728987dad2b847f9");
+// productUpdateService("62f7a84ccb54052c9cbdd6d4");

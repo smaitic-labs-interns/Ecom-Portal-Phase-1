@@ -3,38 +3,51 @@ const {
   updateOrder,
   deleteOrder,
 } = require("../database/OrderDB");
-const OrderSchema = require("../model/orderModel");
+const Order = require("../model/OrderModel");
 const { isEmpty } = require("../utils/validator");
+const User = require('../model/UserModel')
+const Product = require('../model/ProductModel')
 require("dotenv").config({ path: "../.env" });
+const {mongoConnect} = require('../connectDatabase/mongoConnect')
 
-function orderCreateService(
-  orderedBy,
-  itemName,
-  quantity,
-  itemPrice,
-  paymentMethod
+mongoConnect()
+
+async function orderCreateService(
+  userId, productId, quantity, price, paymentType,status
 ) {
   try {
-    let order = new OrderSchema({
-      orderedBy: "hello",
-      itemName: "nom",
+    let newOrder = new Order({
+      userId: "62f7a9688f6b195ae727bf16",
+      productId: "62f7bdfdc866f265bede7622",
       quantity: 1,
-      itemPrice: 100,
-      paymentMethod: "cash",
+      price: 100,
+      paymentType: "card",
     });
 
-    if (!OrderSchema.PaymentType.includes(order.paymentMethod)) {
-      console.error("provide valid payment type");
-      return;
+    const user = await User.findById(newOrder.userId)
+    const product = await Product.findById(newOrder.productId)
+
+    console.log(user,'check user');
+    console.log(product, 'check product');
+    if(!user || !product){
+      console.log('user or product not found');
+      return false
     }
+
+    if (!newOrder.status || !newOrder.paymentType)
+      console.log("invalid status or invalid payment type");
+   
+    else{
     if (
-      !isEmpty(orderedBy) &&
-      !isEmpty(itemName) &&
+      !isEmpty(userId) &&
+      !isEmpty(productId) &&
       !isEmpty(quantity) &&
-      !isEmpty(itemPrice) &&
-      !isEmpty(paymentMethod)
+      !isEmpty(price) &&
+      !isEmpty(paymentType)
     )
-      createOrder(order.toJson());
+      await createOrder(newOrder);
+    }
+    
   } catch (error) {
     throw error
   }

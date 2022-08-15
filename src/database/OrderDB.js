@@ -1,11 +1,12 @@
 const { readJson, writeFile } = require("../utils/fileHandling");
-
-exports.createOrder = async (obj) => {
+const Order = require('../model/OrderModel')
+exports.createOrder = async (order) => {
   try {
-    let order = await readJson(process.env.ORDER_JSON);
-    order = [...order, obj];
-    writeFile(process.env.ORDER_JSON, order);
-    return order;
+      await Order.create(order)
+    // let order = await readJson(process.env.ORDER_JSON);
+    // order = [...order, obj];
+    // writeFile(process.env.ORDER_JSON, order);
+    // return order;
   } catch (error) {
     throw error
   }

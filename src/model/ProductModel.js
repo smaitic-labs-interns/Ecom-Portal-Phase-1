@@ -1,15 +1,16 @@
-
-
 const mongoose = require("mongoose");
 
-const ProductSchema = new mongoose.Schema({
-title:{type: String},
-description: {type: String},
-price: {type: String},
-quantity:{type: String},
-});
+const ProductSchema = new mongoose.Schema(
+  {
+    title: { type: String },
+    description: { type: String },
+    price: { type: Number },
+    quantity: { type: Number },
+  },
+  { timestamps: true }
+);
 
-const Product = mongoose.model('product', ProductSchema)
+const Product = mongoose.model("product", ProductSchema);
 module.exports = Product;
 
 // class ProductSchema{
@@ -25,7 +26,7 @@ module.exports = Product;
 //     this.price = price;
 //     this.quantity = quantity;
 //   }
-//   toJson(){ 
+//   toJson(){
 //     return {
 //       productId: this.productId,
 //       title: this.title,
@@ -37,7 +38,3 @@ module.exports = Product;
 // }
 
 // module.exports = ProductSchema
-
-  
-
-
