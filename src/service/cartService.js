@@ -4,30 +4,38 @@ const {
   updateCart,
   cartSelectOne,
 } = require("../database/CartDB");
-const { selectOneProduct } = require("../database/ProductDB");
-const CartSchema = require("../model/CartModel");
+const { mongoConnect } = require("../connectDatabase/mongoConnect");
+const Cart = require("../model/CartModel");
 const { isEmpty, cartProductSchema } = require("../utils/validator");
 require("dotenv").config({ path: "../.env" });
 
-function cartCreateService(productId, userId, quantity) {
-  console.log(productId);
-  try {
-    if (!isEmpty(productId)) {
-      console.log("here");
-      let product = selectOneProduct(productId);
-      if (product.length <= 0) {
-        console.log(product);
-        console.log("Product not found");
-        return;
-      }
-      let cart = new CartSchema({
-        productId,
-        userId,
-        quantity,
-      });
+mongoConnect();
 
-      createCart(cart.toJson());
+async function cartCreateService(productId) {
+  // console.log(productId);
+  try {
+    let cart = new Cart({
+      userId: "62f7a9688f6b195ae727bf16",
+      products: [
+        {
+          productId: "62f7bde1df16a3e7093f22bc",
+          quantity: 10,
+        },
+      ],
+    });
+    console.log(cart,'check cart');
+    const existsProduct = await Cart.findOne({productId:cart.products.productId})
+    console.log(existsProduct, 'check product');
+    if(!existsProduct){
+      throw 'product does not exists'
     }
+    else{
+    if (!isEmpty(productId)) {
+      // console.log("here");
+      await createCart(cart);
+      return
+    }
+  }
   } catch (error) {
     throw error;
   }
@@ -72,10 +80,6 @@ async function addItemToCart() {
   }
 }
 
-// cartCreateService(
-//   "303b9a8d-893c-4a16-b8be-5a1a9ce21587",
-//   "e954cb30-ac05-4943-9b42-d156943de2a3",
-//   15
-// );
-addItemToCart();
+cartCreateService();
+// addItemToCart();
 // cartDeleteService("89d3e2a7-2bbb-4b72-b2b6-f9125f24f23d");

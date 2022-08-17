@@ -12,18 +12,23 @@ exports.createOrder = async (order) => {
   }
 };
 
-exports.updateOrder = async (orderId,{quantity = null,status = null}
-) => {
+exports.totalBillCalculate = async () => {
+  await Order.aggregate({
+
+        $multiply: ['price', 'quantity']
+      
+    
+  })
+}
+
+exports.updateOrder = async (quantity) => {
+  console.log(quantity,'pass');
   try {
-     let orders = await readJson(process.env.ORDER_JSON);
-     const newOrders = orders.map((order) => {
-       if (order.orderId == orderId) {
-         order.quantity = quantity === null ? order.quantity : quantity;
-         order.status = status === null ? order.status : status;
-       }
-       return order;
-     });
-     writeFile(process.env.ORDER_JSON, newOrders);
+  const checkUpdate = await Order.updateOne({
+    $set: {quantity}, new: true
+  })
+  console.log(checkUpdate);
+
   } catch (error) {
     throw error
   }
@@ -31,11 +36,8 @@ exports.updateOrder = async (orderId,{quantity = null,status = null}
 };
 exports.deleteOrder = async (orderId) => {
   try {
-    let order = await readJson(process.env.ORDER_JSON);
-    const orders = order.filter((order) => {
-      return order.orderId !== orderId;
-    });
-    writeFile(process.env.ORDER_JSON, orders);
+    let order = await Order.findByIdAndDelete(orderId);
+    return order;
   } catch (error) {
     throw error
   }

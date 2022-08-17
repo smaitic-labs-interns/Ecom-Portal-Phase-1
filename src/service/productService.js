@@ -9,8 +9,9 @@ const { isEmpty } = require("../utils/validator");
 const { mongoConnect } = require("../connectDatabase/mongoConnect");
 const { listenerCount } = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
-
 mongoConnect();
+
+
 async function productCreateService(title, description, quantity, price) {
   try {
     let product = new Product({
@@ -34,14 +35,14 @@ async function productCreateService(title, description, quantity, price) {
 
 async function productUpdateService(id) {
   try {
-    const { title, description, price, quantity } = {
-      title: "jordan",
-      description: "shoes",
-    };
+   
+       let title ='new'
+        let description = 'clothing market'
+
     const productID = await Product.findById(id);
     console.log(productID, "search");
     if (productID) {
-      await updateProduct(title, description, price, quantity);
+      await updateProduct(title, description);
       console.log("updated");
     } else {
       console.log("productId does not exists ");
@@ -51,14 +52,19 @@ async function productUpdateService(id) {
   }
 }
 async function productSearchService(search) {
+  try{
   let product = await filterOneProductOnSearch(search);
   console.log("query result", product);
+  }
+  catch(error){
+    throw error;
+  }
 }
 
 function deleteProductService(productId) {
   deleteProduct(productId);
 }
-productCreateService();
+// productCreateService();
 // productSearchService('r');
 // deleteProductService("62f7a9d2728987dad2b847f9");
-// productUpdateService("62f7a84ccb54052c9cbdd6d4");
+productUpdateService("62f7bde1df16a3e7093f22bc");
