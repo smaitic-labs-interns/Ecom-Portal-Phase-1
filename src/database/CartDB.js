@@ -1,12 +1,10 @@
-// const Cart = require("../model/CartModel");
-const { readJson, writeFile } = require("../utils/fileHandling");
+const Cart = require("../model/CartModel");
+// const { readJson, writeFile } = require("../utils/fileHandling")
 
-exports.createCart = async (obj) => {
+exports.createCart = async (cart) => {
   try {
-    let cart = await readJson(process.env.CART_JSON);
-    cart = [...cart, obj];
-    writeFile(process.env.CART_JSON, cart);
-    return cart;
+    const newCart = await Cart.create(cart)
+    return newCart
   } catch (error) {
     throw error;
   }

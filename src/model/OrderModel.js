@@ -5,22 +5,24 @@ const OrderSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     productId: { type: Schema.Types.ObjectId, ref: "product" },
-
     status: {
       type: String,
       enum: ['pending', 'paid', 'canceled', 'delivered'],
       default: "pending",
     },
-
     paymentType: {
       type: String,
       enum: ["cash", "card", "paypal"],
     },
     quantity: { type: Number },
     price: { type: Number },
+    totalAmount: {type:Number}
   },
   { timestamps: true }
 );
+OrderSchema.path('totalAmount').set(function(price, quantity){
+  return(price * quantity)
+})
 
 const Order = mongoose.model("order", OrderSchema);
 module.exports = Order;
