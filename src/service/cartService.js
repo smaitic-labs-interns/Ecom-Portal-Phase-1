@@ -53,9 +53,9 @@ function cartDeleteService(cartId) {
 async function addItemToCart() {
   try {
     const { cartId, product } = {
-      cartId: "ae52fa49-e94b-4459-acda-122f1eeb6487",
-      product: {
-        productId: "32b9e9e7-20de-49ef-a561-1bce2ed18c24",
+      cartId: "62fe10cd2506a2117499ad86",
+      products: {
+        productId: "62f7bde1df16a3e7093f22bc",
         quantity: 15,
       },
     };
@@ -81,5 +81,5 @@ async function addItemToCart() {
 }
 
 cartCreateService();
-// addItemToCart();
+addItemToCart();
 // cartDeleteService("89d3e2a7-2bbb-4b72-b2b6-f9125f24f23d");

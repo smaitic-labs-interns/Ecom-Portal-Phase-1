@@ -33,23 +33,18 @@ async function productCreateService(title, description, quantity, price) {
   }
 }
 
-async function productUpdateService(id) {
-  try {
-   
-       let title ='new'
-        let description = 'clothing market'
+async function productUpdateService(id,title, description) {
 
     const productID = await Product.findById(id);
     console.log(productID, "search");
-    if (productID) {
-      await updateProduct(title, description);
-      console.log("updated");
-    } else {
-      console.log("productId does not exists ");
+    if (productID){ 
+      await updateProduct(id, title, description)
     }
-  } catch (error) {
-    throw error;
-  }
+    else{
+      throw "productId does not exists "
+    }
+  
+    
 }
 async function productSearchService(search) {
   try{
@@ -67,4 +62,4 @@ function deleteProductService(productId) {
 // productCreateService();
 // productSearchService('r');
 // deleteProductService("62f7a9d2728987dad2b847f9");
-productUpdateService("62f7bde1df16a3e7093f22bc");
+productUpdateService("62f7bde1df16a3e7093f22bc", 'nice clothes', 'me');

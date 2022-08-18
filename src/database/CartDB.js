@@ -1,5 +1,5 @@
 const Cart = require("../model/CartModel");
-// const { readJson, writeFile } = require("../utils/fileHandling")
+const { readJson, writeFile } = require("../utils/fileHandling")
 
 exports.createCart = async (cart) => {
   try {
@@ -23,7 +23,7 @@ exports.cartSelectOne = async (cartId) => {
 
 exports.updateCart = async (obj) => {
   try {
-    let carts = await readJson(process.env.CART_JSON);
+   const cart = await Cart.findOne({cartId:obj.cartId})
     let newCart = carts.map((cart) => {
       if (cart.cartId == obj.cartId) cart.products = obj.products;
       return cart;
