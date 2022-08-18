@@ -16,15 +16,14 @@ exports.createProduct = async (product) => {
   }
 };
 
-exports.updateProduct = async (title, description, quantity, price) => {
+exports.updateProduct = async (id,title, description) => {
+  console.log(id,'check');
   try {
-    const productUpdate = await Product.updateOne({
-      title,
-      description,
-      quantity,
-      price,
-    });
-    return productUpdate;
+      const updateProduct = await Product.findByIdAndUpdate(id, {
+        title,
+        description,
+      });
+      return updateProduct;
     // let product = await readJson(process.env.PRODUCT_JSON);
     // const newProduct = product.map((prod) => {
     //   if (prod.productId == _productId) {
