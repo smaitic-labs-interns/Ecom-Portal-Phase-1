@@ -10,26 +10,17 @@ exports.createCart = async (cart) => {
   }
 };
 
-exports.cartSelectAll = () => {
-  let carts = readJson(process.env.CART_JSON);
-  return carts;
-};
 
-exports.cartSelectOne = async (cartId) => {
-  let carts = await readJson(process.env.CART_JSON);
-  let any = carts.filter((cart) => cart.cartId == cartId)[0];
-  return any;
-};
-
-exports.updateCart = async (obj) => {
+exports.updateCart = async (cartId,productId, quantity) => {
   try {
-   const cart = await Cart.findOne({cartId:obj.cartId})
-    let newCart = carts.map((cart) => {
-      if (cart.cartId == obj.cartId) cart.products = obj.products;
-      return cart;
-    });
-    console.log("New Cart", newCart);
-    await writeFile(process.env.CART_JSON, newCart);
+   const cart = await Cart.findByIdAndUpdate(cartId,{
+    $push:{
+      products:{
+      productId, quantity}
+    }
+
+   })
+   return cart
   } catch (error) {
     throw error;
   }
@@ -37,11 +28,8 @@ exports.updateCart = async (obj) => {
 
 exports.deleteCart = async (cartId) => {
   try {
-    let cart = await readJson(process.env.CART_JSON);
-    const carts = cart.filter((cart) => {
-      return cart.cartId !== cartId;
-    });
-    writeFile(process.env.CART_JSON, carts);
+    const cartDelete = await Cart.findByIdAndDelete(cartId)
+    return cartDelete
   } catch (error) {
     throw error;
   }
