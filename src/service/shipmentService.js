@@ -1,31 +1,34 @@
-const { create, updateShipAddress } = require("../database/shipmentDB");
+const { createShipment, updateShipAddress } = require("../database/shipmentDB");
 const Shipment = require("../model/shipmentModel");
 require("dotenv").config({ path: "../.env" });
 const { isEmpty } = require("../utils/validator");
+const {mongoConnect} = require('../connectDatabase/mongoConnect')
+mongoConnect()
 
-async function createShipmentService(orderId, status) {
+
+async function createShipmentService() {
   try {
     let ship = new Shipment({
-      orderId: "af27f627-b988-4e2e-9402-0f39ac0ea7cc",
+      orderId: "62fcb0b3de74ba80b6872b19",
       address: "kathmandu",
-
       shippingStatus: "on the way",
       status: "paid",
     });
-    console.log(orderId, status);
-    await create(ship.toJson(), ship.orderId);
+    console.log(ship);
+   await createShipment(ship,ship.orderId);
+
   } catch (error) {
     throw error;
   }
 }
 
-function updateShipmentService(shipmentId) {
+async function updateShipmentService(shipmentId, ) {
   try {
     const { address } = {
-      address: "Kathmandu",
+      address: "Bhaktapur",
     };
     if (!isEmpty(address)) {
-      updateShipAddress(shipmentId, { address });
+     await updateShipAddress(shipmentId, { address });
     }
   } catch (error) {
     throw error;
@@ -33,4 +36,4 @@ function updateShipmentService(shipmentId) {
 }
 
 createShipmentService();
-// updateShipmentService("4a46ef30-ea85-4ba5-8549-721e8062b439");
+// updateShipmentService("62fe28e001b3a5a48b8d26dc");

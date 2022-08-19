@@ -1,4 +1,4 @@
-const User= require("../model/UserModel");
+const User = require("../model/UserModel");
 const { create, selectOne } = require("../database/UserDB");
 const { passwordEncrypt } = require("../utils/validator");
 const bcrypt = require("bcrypt");
@@ -30,7 +30,7 @@ async function login() {
     };
 
     let user = await selectOne(email);
-    console.log(user)
+    console.log(user);
     if (user && bcrypt.compareSync(password, user.password))
       console.log("you are logged in");
     else console.log("email or password invalid");

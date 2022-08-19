@@ -65,6 +65,7 @@ async function orderUpdateService(id, quantity) {
     console.log(existsOrder, "order exist");
     if (!existsOrder) {
       console.log("order does not exists ");
+      return
     } else {
       if (!isEmpty(quantity)) {
         await updateOrder(id, quantity);
@@ -80,11 +81,15 @@ async function orderUpdateService(id, quantity) {
 async function statusUpdateService(id, status) {
   console.log(status,'saldjgh');
 
-  try {
+  try { 
+
       const existsId = await Order.findById(id);
       console.log(existsId, "id exist");
-      if (!existsId) {
-        console.log("status does not exists ");
+
+      if (!existsId ) {
+        console.log("id does not exists ");
+        return
+      
       } else {
         if (!isEmpty(status)) {
           await updateStatus(id, status);
@@ -108,5 +113,5 @@ function orderDeleteService(id) {
 
 // orderUpdateService("62fcb0b3de74ba80b6872b19", 20);
 // orderCreateService();
-statusUpdateService("62fcb0b3de74ba80b6872b19",'canceled');
+statusUpdateService("62fcb0b3de74ba80b6872b19", 'paid');
 // orderDeleteService("62fb4226c174b4b54c2b23e7");

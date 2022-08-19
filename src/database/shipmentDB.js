@@ -1,40 +1,27 @@
-const { readJson, writeFile } = require("../utils/fileHandling");
-const { selectOneOrder } = require('../database/OrderDB');
+const Shipping = require("../model/shipmentModel");
+const Order = require("../model/OrderModel");
 
-
-
-  exports.create = async (obj, orderId) => {
-    try{
-    let ship =  await readJson(process.env.SHIP_JSON);
-    let orderExists = await selectOneOrder(orderId).length <= 0 ? false : await selectOneOrder(orderId);
-    if (orderExists && orderExists.status == "paid") {    
-    ship.push(obj)
-     
-     await writeFile(process.env.SHIP_JSON, ship);
-        // return true;
+exports.createShipment = async (ship, orderId) => {
+  try {
+    console.log(orderId, "check order");
+    let orderExists = await Order.findById(orderId);
+    if (orderExists && orderExists.status == "paid") {
+      await Shipping.create(ship,);
     } else {
       throw "Either orderId is not found or status is not paid";
     }
-  }catch(error){
-    console.log(error)
-  }
-  }
-
-exports.updateShipAddress = async (shipmentId,{address = null}) => {
-  try {
-    let shipping = await readJson(process.env.SHIP_JSON);
-    const newShipAddress = shipping.map((ship) => {
-      if (ship.shipmentId == shipmentId) {
-        ship.address = address === null ? ship.address : address;
-      }
-      return ship;
-    });
-    writeFile(process.env.SHIP_JSON, newShipAddress);
   } catch (error) {
-    throw error
+    console.log(error);
   }
-    
-} 
+};
 
-
-
+exports.updateShipAddress = async (shipmentId, { address = null }) => {
+  try {
+    let shipping = await Shipping.findByIdAndUpdate(shipmentId, {
+      address,
+    });
+    return shipping;
+  } catch (error) {
+    throw error;
+  }
+};
