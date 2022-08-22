@@ -2,17 +2,17 @@ const {
   createCart,
   deleteCart,
   updateCart,
+  deleteCartProduct,
 } = require("../database/CartDB");
 const { mongoConnect } = require("../connectDatabase/mongoConnect");
 const Cart = require("../model/CartModel");
-const { isEmpty, cartProductSchema } = require("../utils/validator");
-const { findById } = require("../model/OrderModel");
+const mongoose = require('mongoose')
 const Product = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
 
 mongoConnect();
 
-async function cartCreateService(productId) {
+async function cartCreateService() {
 
   try {
     let cart = {
@@ -31,29 +31,21 @@ async function cartCreateService(productId) {
       console.log("product does not exists"); 
   
     } else {
-      if (!isEmpty(productId)) {
+
         await createCart(cart);
         return;
-      }
+      
     }
   } catch (error) {
     throw error;
   }
 }
 
-function cartDeleteService(cartId) {
-  try {
-    deleteCart(cartId);
-    console.log("delete successful");
-  } catch (error) {
-    throw error;
-  }
-}
 
 async function addItemToCart() {
   try {
     const { cartId, products } = {
-      cartId: "62ff65f4b9af4b2c0c330869",
+      cartId: "630254455805128e268fdccd",
       products: {
         productId: "62f7bdfdc866f265bede7622",
         quantity: 15,
@@ -77,6 +69,34 @@ async function addItemToCart() {
   }
 }
 
+
+async function deleteCartProductService (productsId){
+  var is_valid = mongoose.Types.ObjectId.isValid(productsId)
+  if(is_valid){
+  try {
+      const existsProduct = await Cart.findOne({'products._id':productsId})
+      if(existsProduct){
+        await deleteCartProduct(productsId)
+        return
+      }
+      console.log('product not found');
+  } catch (error) {
+    throw error
+  }
+}
+console.log('provide valid id');
+}
+
+function cartDeleteService(cartId) {
+  try {
+    deleteCart(cartId);
+    console.log("delete successful");
+  } catch (error) {
+    throw error;
+  }
+}
+
 // cartCreateService();
+// deleteCartProductService("63031cce594db4eddcac3dd6");
 addItemToCart();
 // cartDeleteService("89d3e2a7-2bbb-4b72-b2b6-f9125f24f23d");

@@ -2,8 +2,8 @@ const {
   createOrder,
   updateOrder,
   deleteOrder,
-  totalBillCalculate,
   updateStatus,
+  refundAAndReturnOrder,
 } = require("../database/OrderDB");
 const Order = require("../model/OrderModel");
 const { isEmpty } = require("../utils/validator");
@@ -11,95 +11,112 @@ const User = require("../model/UserModel");
 const Product = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
 const { mongoConnect } = require("../connectDatabase/mongoConnect");
-
+var mongoose = require("mongoose");
 mongoConnect();
 
-async function orderCreateService(
+var PAYMENT_TYPES = ["cash", "card", "paypal"];
+var STATUS = ["paid", "canceled", "pending", "delivered"];
+
+async function orderCreateService({
   userId,
   productId,
   quantity,
   price,
   paymentType,
-  totalAmount
-) {
+  status,
+  totalAmount = null,
+}) {
   try {
-    let newOrder = new Order({
-      userId: "62f7a9688f6b195ae727bf16",
-      productId: "62f7bdfdc866f265bede7622",
-      quantity: 12,
-      price: 48300,
-      paymentType: "cash",
-      status: "paid",
-      totalAmount: totalBillCalculate(totalAmount),
-    });
-
-    const user = await User.findById(newOrder.userId);
-    const product = await Product.findById(newOrder.productId);
-    console.log(user, "check user");
-    console.log(product, "check product");
-    if (!user || !product) {
-      console.log("user ID or product ID not found");
-      return false;
+    const user = await User.exists({ _id: userId });
+    const product = await Product.exists({ _id: productId });
+    if (!PAYMENT_TYPES.includes(paymentType) || !STATUS.includes(status)) {
+      console.log("payment or status not valid");
+      return;
     }
-    if (!newOrder.status || !newOrder.paymentType)
-      console.log("invalid status or invalid payment type");
-    else {
-      if (
-        !isEmpty(userId) &&
-        !isEmpty(productId) &&
-        !isEmpty(quantity) &&
-        !isEmpty(price) &&
-        !isEmpty(paymentType) &&
-        !isEmpty(totalAmount)
-      )
-        await createOrder(newOrder);
+    if (user && product && !isEmpty(quantity) && !isEmpty(price)) {
+      let newOrder = new Order({
+        userId: userId,
+        productId: productId,
+        quantity: quantity,
+        price: price,
+        paymentType: paymentType,
+        status: status,
+      });
+      await createOrder(newOrder);
+      return;
     }
+    console.log("user ID or product ID not found");
+    return;
   } catch (error) {
     throw error;
   }
 }
 
 async function orderUpdateService(id, quantity) {
-  try {
-    const existsOrder = await Order.findById(id);
-    console.log(existsOrder, "order exist");
-    if (!existsOrder) {
-      console.log("order does not exists ");
-      return
-    } else {
-      if (!isEmpty(quantity)) {
-        await updateOrder(id, quantity);
-
-        console.log("successfully updated");
+  var valid_id = mongoose.Types.ObjectId.isValid(id);
+  if (valid_id) {
+    try {
+      const existsOrder = await Order.exists({ _id: id });
+      console.log(existsOrder, "order exist");
+      if (existsOrder) {
+        if (!isEmpty(quantity)) {
+          await updateOrder(id, quantity);
+          console.log("successfully updated");
+          return;
+        }
       }
+      console.log("order does not exists ");
+      return;
+    } catch (error) {
+      throw error;
     }
-  } catch (error) {
-    throw error;
   }
+  console.log("provide valid id");
 }
 
 async function statusUpdateService(id, status) {
-  console.log(status,'saldjgh');
-
-  try { 
-
+  try {
+    if (STATUS.includes(status)) {
       const existsId = await Order.findById(id);
-      console.log(existsId, "id exist");
-
-      if (!existsId ) {
+      console.log(existsId);
+      if (!existsId) {
         console.log("id does not exists ");
-        return
-      
+        return;
       } else {
         if (!isEmpty(status)) {
           await updateStatus(id, status);
-
           console.log("successfully updated");
+          return;
         }
       }
+    } else {
+      console.error("Status invalid.");
+      return;
+    }
   } catch (error) {
-    throw error;
+    console.log("Order id not exists");
   }
+}
+
+async function refundAndReturnService(id) {
+  var valid_id = mongoose.Types.ObjectId.isValid(id);
+  if (valid_id) {
+    try {
+      let status = "returned";
+      let orderId = await Order.findById(id);
+      console.log(orderId, "check");
+      if (orderId && orderId.status == "canceled") {
+        let refund = await refundAAndReturnOrder(id, status);
+        console.log(refund, "refunding is on process");
+        return;
+      }
+      console.log("order is not canceled");
+      return;
+    } catch (error) {
+      throw error;
+    }
+  }
+  console.error("provide valid order id");
 }
 
 function orderDeleteService(id) {
@@ -112,6 +129,14 @@ function orderDeleteService(id) {
 }
 
 // orderUpdateService("62fcb0b3de74ba80b6872b19", 20);
-// orderCreateService();
-statusUpdateService("62fcb0b3de74ba80b6872b19", 'paid');
+// orderCreateService({
+//   userId: "62f7a8d45507e268b41b2c35",
+//   productId: "62f7be1be7304bda01b0d532",
+//   status: "paid",
+//   paymentType: "cash",
+//   quantity: 5,
+//   price: 42000,
+// });
+// statusUpdateService("630225abafaf6bcc874808e4", "canceled");
+refundAndReturnService("630225abafaf6bcc874808e4");
 // orderDeleteService("62fb4226c174b4b54c2b23e7");

@@ -4,7 +4,7 @@ exports.createProduct = async (product) => {
     let productExists = await Product.findOne({ title: product.title });
     console.log(productExists);
     if (productExists) {
-      console.log("product exists");
+      console.log("product exists create new products");
     } else {
       await Product.create(product);
     }
@@ -13,16 +13,18 @@ exports.createProduct = async (product) => {
   }
 };
 
-exports.updateProduct = async (id, title, description) => {
+exports.updateProduct = async (id, title, description,price,quantity) => {
   console.log(id, "check");
   try {
     const updateProduct = await Product.findByIdAndUpdate(id, {
       title,
       description,
+      price,
+      quantity
     });
     return updateProduct;
   } catch (error) {
-    throw error;
+    console.log('product not found')
   }
 };
 
