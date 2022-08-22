@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
+const Product = require("./ProductModel");
 const { Schema } = mongoose;
+
+const STATUS = [
+  "pending",
+  "paid",
+  "canceled",
+  "delivered",
+  "acknowledge",
+  "received",
+  "processed to shipping",
+  "returned",
+];
 
 const OrderSchema = new Schema(
   {
@@ -7,7 +19,7 @@ const OrderSchema = new Schema(
     productId: { type: Schema.Types.ObjectId, ref: "product" },
     status: {
       type: String,
-      enum: ['pending', 'paid', 'canceled', 'delivered'],
+      enum: STATUS,
       default: "pending",
     },
     paymentType: {
@@ -16,62 +28,32 @@ const OrderSchema = new Schema(
     },
     quantity: { type: Number },
     price: { type: Number },
-    totalAmount: {type:Number}
+    totalAmount: { type: Number },
   },
   { timestamps: true }
 );
-OrderSchema.path('totalAmount').set(function(price, quantity){
-  return(price * quantity)
-})
+
+OrderSchema.pre("save", async function (next) {
+  data = this;
+  data.totalAmount = data.price * data.quantity;
+  if (data.status == "processed to shipping") {
+    console.error("Cannot update the data that is already in shipping process");
+    return;
+  }
+  next();
+});
+
+OrderSchema.post("save", async function (data) {
+  const product = await Product.findById(data.productId);
+  console.log(product);
+  if (product.quantity >= data.quantity) {
+    product.quantity = product.quantity - data.quantity;
+    await product.save();
+  }
+  console.error("product quantity should not be less than order quantity");
+});
+
 
 const Order = mongoose.model("order", OrderSchema);
 module.exports = Order;
 
-// const uuid = require("uuid");
-// const orderId = uuid.v4();
-
-// class OrderSchema {
-//   static ORDER_STATUS = ["paid", "delivered", "pending", "cancel"];
-//   static PaymentType = ["cash", "card", "paypal"];
-//   orderId;
-//   orderedBy;
-//   itemName;
-//   quantity;
-//   itemPrice;
-//   paymentMethod;
-//   status;
-//   constructor({
-//     orderedBy,
-//     itemName,
-//     quantity,
-//     itemPrice,
-//     paymentMethod,
-//     status,
-//   }) {
-//     this.orderId = orderId;
-//     this.orderedBy = orderedBy;
-//     this.itemName = itemName;
-//     this.quantity = quantity;
-//     this.itemPrice = itemPrice;
-//     this.paymentMethod = paymentMethod;
-    // OrderSchema.PaymentType.includes(paymentMethod);
-//     if (OrderSchema.ORDER_STATUS.includes(status)) {
-//       this.status = status;
-//     } else {
-//       this.status = "pending";
-//     }
-//   }
-//   toJson() {
-//     return {
-//       orderId: this.orderId,
-//       orderedBy: this.orderedBy,
-//       itemName: this.itemName,
-//       quantity: this.quantity,
-//       itemPrice: this.itemPrice,
-//       paymentMethod: this.paymentMethod,
-//       status: this.status,
-//     };
-//   }
-// }
-
-// module.exports = OrderSchema;
