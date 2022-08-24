@@ -13,18 +13,16 @@ exports.createProduct = async (product) => {
   }
 };
 
-exports.updateProduct = async (id, title, description,price,quantity) => {
-  console.log(id, "check");
+exports.updateProduct = async (productId, price, quantity) => {
+  console.log(productId, "check");
   try {
-    const updateProduct = await Product.findByIdAndUpdate(id, {
-      title,
-      description,
+    const updateProduct = await Product.findByIdAndUpdate(productId, {
+      quantity,
       price,
-      quantity
     });
     return updateProduct;
   } catch (error) {
-    console.log('product not found')
+    console.log("product not found");
   }
 };
 

@@ -5,14 +5,13 @@ const bcrypt = require("bcrypt");
 const { mongoConnect } = require("../connectDatabase/mongoConnect");
 require("dotenv").config({ path: "../.env" });
 
-mongoConnect();
 
-async function signup() {
+exports.signup = async (username, email, password) => {
   try {
     let user = new User({
-      username: "ram",
-      email: "ram@gmail.com",
-      password: passwordEncrypt("good"),
+      username: username,
+      email: email,
+      password: passwordEncrypt(password),
     });
     console.log(user);
     await create(user);
@@ -20,15 +19,11 @@ async function signup() {
     throw error;
   }
 }
-signup();
 
-async function login() {
+
+exports.login = async(email,password) => {
   try {
-    const { email, password } = {
-      email: "hari@gmail.com",
-      password: "nice",
-    };
-
+  
     let user = await selectOne(email);
     console.log(user);
     if (user && bcrypt.compareSync(password, user.password))
@@ -39,4 +34,4 @@ async function login() {
   }
 }
 
-// login();
+

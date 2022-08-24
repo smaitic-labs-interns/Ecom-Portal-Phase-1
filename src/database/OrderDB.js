@@ -24,7 +24,7 @@ exports.updateOrder = async (id, quantity) => {
 };
 
 exports.updateStatus = async (id, status) => {
-  console.log(status, "pass");
+  console.log(status, "status");
   try {
     const checkUpdate = await Order.findByIdAndUpdate(id, {
       status,
@@ -35,16 +35,17 @@ exports.updateStatus = async (id, status) => {
   }
 };
 
-exports.refundAAndReturnOrder = async (id, status) => {
+exports.refundOrder = async (id, status) => {
   try {
     let orderId = await Order.findByIdAndUpdate(id,{
       status
     })
-    return orderId
+    console.log(orderId)
   } catch (error) {
-    
+    throw(error)
   }
 }
+
 exports.deleteOrder = async (id) => {
   try {
     let order = await Order.findByIdAndDelete(id);
