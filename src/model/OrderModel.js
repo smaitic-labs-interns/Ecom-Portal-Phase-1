@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Product = require("./ProductModel");
 const { Schema } = mongoose;
 
+
 const STATUS = [
   "pending",
   "paid",
@@ -12,7 +13,6 @@ const STATUS = [
   "processed to shipping",
   "returned",
 ];
-
 const OrderSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "user" },
@@ -53,7 +53,5 @@ OrderSchema.post("save", async function (data) {
   console.error("product quantity should not be less than order quantity");
 });
 
-
 const Order = mongoose.model("order", OrderSchema);
 module.exports = Order;
-

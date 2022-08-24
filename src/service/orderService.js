@@ -3,21 +3,19 @@ const {
   updateOrder,
   deleteOrder,
   updateStatus,
-  refundAAndReturnOrder,
+  refundOrder,
 } = require("../database/OrderDB");
 const Order = require("../model/OrderModel");
 const { isEmpty } = require("../utils/validator");
 const User = require("../model/UserModel");
 const Product = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
-const { mongoConnect } = require("../connectDatabase/mongoConnect");
 var mongoose = require("mongoose");
-mongoConnect();
 
 var PAYMENT_TYPES = ["cash", "card", "paypal"];
-var STATUS = ["paid", "canceled", "pending", "delivered"];
+var STATUS = ["paid", "canceled", "pending", "delivered", "returned"];
 
-async function orderCreateService({
+exports.orderCreateService = async (
   userId,
   productId,
   quantity,
@@ -25,7 +23,7 @@ async function orderCreateService({
   paymentType,
   status,
   totalAmount = null,
-}) {
+) => {
   try {
     const user = await User.exists({ _id: userId });
     const product = await Product.exists({ _id: productId });
@@ -50,9 +48,8 @@ async function orderCreateService({
   } catch (error) {
     throw error;
   }
-}
-
-async function orderUpdateService(id, quantity) {
+};
+exports.orderUpdateService = async (id, quantity) => {
   var valid_id = mongoose.Types.ObjectId.isValid(id);
   if (valid_id) {
     try {
@@ -72,9 +69,9 @@ async function orderUpdateService(id, quantity) {
     }
   }
   console.log("provide valid id");
-}
+};
 
-async function statusUpdateService(id, status) {
+exports.statusUpdateService = async (id, status) => {
   try {
     if (STATUS.includes(status)) {
       const existsId = await Order.findById(id);
@@ -96,9 +93,9 @@ async function statusUpdateService(id, status) {
   } catch (error) {
     console.log("Order id not exists");
   }
-}
+};
 
-async function refundAndReturnService(id) {
+exports.refundService = async (id) => {
   var valid_id = mongoose.Types.ObjectId.isValid(id);
   if (valid_id) {
     try {
@@ -106,9 +103,8 @@ async function refundAndReturnService(id) {
       let orderId = await Order.findById(id);
       console.log(orderId, "check");
       if (orderId && orderId.status == "canceled") {
-        let refund = await refundAAndReturnOrder(id, status);
-        console.log(refund, "refunding is on process");
-        return;
+        let refund = await refundOrder(id, status);
+        return refund;
       }
       console.log("order is not canceled");
       return;
@@ -117,15 +113,20 @@ async function refundAndReturnService(id) {
     }
   }
   console.error("provide valid order id");
-}
+};
 
-function orderDeleteService(id) {
+exports.orderDeleteService = (id) => {
+   var valid_id = mongoose.Types.ObjectId.isValid(id);
+     if (valid_id) {
   try {
     deleteOrder(id);
     console.log("delete successful");
+    return
   } catch (error) {
     throw error;
   }
+}
+console.log('provide valid orderId');
 }
 
 // orderUpdateService("62fcb0b3de74ba80b6872b19", 20);
@@ -138,5 +139,5 @@ function orderDeleteService(id) {
 //   price: 42000,
 // });
 // statusUpdateService("630225abafaf6bcc874808e4", "canceled");
-refundAndReturnService("630225abafaf6bcc874808e4");
+// refundAndReturnService("6304fad78424b4036bce7fbd");
 // orderDeleteService("62fb4226c174b4b54c2b23e7");

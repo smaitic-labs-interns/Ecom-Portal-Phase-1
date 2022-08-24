@@ -17,7 +17,7 @@ exports.updateCart = async (cartId, productId, quantity) => {
         products: {
           productId,
           quantity,
-        },
+        }
       },
     });
     return cart;

@@ -3,11 +3,11 @@ const Shipment = require("../model/shipmentModel");
 require("dotenv").config({ path: "../.env" });
 const { isEmpty } = require("../utils/validator");
 const mongoose = require('mongoose')
-const {mongoConnect} = require('../connectDatabase/mongoConnect')
-mongoConnect()
 
 
-async function createShipmentService(orderId, address) {
+
+
+exports.createShipmentService= async (orderId, address) => {
  var is_valid = mongoose.Types.ObjectId.isValid(orderId)
  if(is_valid){
   try {
@@ -27,7 +27,7 @@ async function createShipmentService(orderId, address) {
 console.log('provide valid id');
 }
 
-async function updateShipmentService(shipmentId, address  ) {
+exports.updateShipmentService = async (shipmentId, address  ) => {
    var is_valid = mongoose.Types.ObjectId.isValid(shipmentId);
    if(is_valid){
   try{
@@ -43,7 +43,7 @@ async function updateShipmentService(shipmentId, address  ) {
   console.log('provide valid id');
 }
 
-async function cancelShipmentService(orderId, shipId) {
+exports.cancelShipmentService = async(orderId, shipId) => {
   var is_valid = mongoose.Types.ObjectId.isValid(orderId || shipId);
   if (is_valid) {
     try {
@@ -59,13 +59,19 @@ async function cancelShipmentService(orderId, shipId) {
 }
 
 
-function deleteShipmentService(shipmentId){
+exports.deleteShipmentService = (shipmentId) => {
+    var is_valid = mongoose.Types.ObjectId.isValid(shipmentId);
+  if (is_valid) {
   deleteShipment(shipmentId);
+    return
+}
+console.log("provide valid shipmentId");
+
 }
 
 
 
 // createShipmentService("6302232d22bb55c0c826fed1", "Bhaktapur");
 // updateShipmentService("63032e708fe1e0177e3d24af",'Bhaktapur');
-cancelShipmentService("630225abafaf6bcc874808e4", "63033713fcb0cfabbc3b5c2e");
+// cancelShipmentService("630225abafaf6bcc874808e4", "63033713fcb0cfabbc3b5c2e");
 // deleteShipmentService("630225abafaf6bcc874808e4");

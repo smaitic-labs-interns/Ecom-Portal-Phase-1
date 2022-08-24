@@ -4,21 +4,19 @@ const {
   updateCart,
   deleteCartProduct,
 } = require("../database/CartDB");
-const { mongoConnect } = require("../connectDatabase/mongoConnect");
 const Cart = require("../model/CartModel");
 const mongoose = require('mongoose')
 const Product = require("../model/ProductModel");
 require("dotenv").config({ path: "../.env" });
 
-mongoConnect();
 
-async function cartCreateService() {
 
+exports.cartCreateService = async () => {
   try {
     let cart = {
       userId: "62f7a9688f6b195ae727bf16",
       products: {
-        productId: "62f7be1be7304bda01b0d532",
+        productId: "6304fd06f8ffc8055c42a1c8",
         quantity: 10,
       },
     };
@@ -42,12 +40,12 @@ async function cartCreateService() {
 }
 
 
-async function addItemToCart() {
+exports.addItemToCart = async() => {
   try {
     const { cartId, products } = {
-      cartId: "630254455805128e268fdccd",
+      cartId: "6305bd54e1dca3edca4a5b12",
       products: {
-        productId: "62f7bdfdc866f265bede7622",
+        productId: "6304fd06f8ffc8055c42a1c8",
         quantity: 15,
       },
     };
@@ -70,7 +68,7 @@ async function addItemToCart() {
 }
 
 
-async function deleteCartProductService (productsId){
+exports.deleteCartProductService= async  (productsId) =>{
   var is_valid = mongoose.Types.ObjectId.isValid(productsId)
   if(is_valid){
   try {
@@ -87,16 +85,21 @@ async function deleteCartProductService (productsId){
 console.log('provide valid id');
 }
 
-function cartDeleteService(cartId) {
+exports.cartDeleteService = async (cartId) => {
+    var is_valid = mongoose.Types.ObjectId.isValid(cartId)
+  if(is_valid){
   try {
-    deleteCart(cartId);
+   await deleteCart(cartId);
     console.log("delete successful");
+    return
   } catch (error) {
     throw error;
   }
 }
+console.log('provide valid cartId');
+}
 
 // cartCreateService();
 // deleteCartProductService("63031cce594db4eddcac3dd6");
-addItemToCart();
+// addItemToCart();
 // cartDeleteService("89d3e2a7-2bbb-4b72-b2b6-f9125f24f23d");
