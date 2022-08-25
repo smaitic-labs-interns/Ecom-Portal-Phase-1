@@ -1,55 +1,71 @@
-const  express = require('express');
+const express = require("express");
 require("dotenv").config();
 
-const {mongoConnect} = require('./connectDatabase/mongoConnect');
-const { cartCreateRoute, addCartRoute, deleteCartProductRoute, deleteCartRoute } = require('./routes/cartRoute');
-const { orderCreateRoute, orderUpdateRoute, orderStatusUpdateRoute, orderRefundAndEReturnedRoute, orderDeleteRoute } = require('./routes/orderRoute');
-const { productCreateRoute, productUpdateRoute, productSearchRoute, productDeleteRoute } = require('./routes/productRoute');
-const { createShipmentRoute, updateShipAddressRoute, cancelShipRoute, deleteShipRoute } = require('./routes/shipmentRoute');
-const { signupRoute,loginRoute } = require('./routes/userRoute');
-
+const { mongoConnect } = require("./connectDatabase/mongoConnect");
+const {
+  cartCreate,
+  addCart,
+  deleteCartProduct,
+  deleteCart,
+} = require("./api/cart");
+const {
+  orderCreate,
+  orderUpdate,
+  orderStatusUpdate,
+  orderRefundAndEReturned,
+  orderDelete,
+} = require("./api/order");
+const {
+  productCreate,
+  productUpdate,
+  productSearch,
+  productDelete,
+} = require("./api/product");
+const {
+  createShipment,
+  updateShipAddress,
+  cancelShip,
+  deleteShip,
+} = require("./api/shipment");
+const { signup, login } = require("./api/user");
 
 const app = express();
-
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-app.post('/signup',signupRoute);
-app.post("/login", loginRoute);
-app.post('/productcreate',productCreateRoute);
-app.post('/productupdate',productUpdateRoute);
-app.get('/productsearch',productSearchRoute);
-app.post('/productdelete',productDeleteRoute);
-app.post('/ordercreate',orderCreateRoute);
-app.post('/orderupdate', orderUpdateRoute);
-app.get('/statuschekc', orderStatusUpdateRoute);
-app.post('/statusupdate',orderStatusUpdateRoute);
-app.get('/refund', orderRefundAndEReturnedRoute);
-app.post('/orderdelete', orderDeleteRoute);
-app.post('/cartcreate',cartCreateRoute);
-app.post('/cartupdate', addCartRoute);
-app.get('/deletecartproduct',deleteCartProductRoute );
-app.post('/deletecart', deleteCartRoute);
-app.post('/createshipment',createShipmentRoute);
-app.post('/updateshipment',updateShipAddressRoute);
-app.post('/cancelshipment',cancelShipRoute)
-app.post('/deleteshipment', deleteShipRoute )
 
- 
+app.post("/signup", signup);
+app.post("/login", login);
+app.get("/userinformation", loginRoute);
+app.post("/productcreate", productCreate);
+app.post("/productupdate", productUpdate);
+app.get("/productsearch", productSearch);
+app.post("/productdelete", productDelete);
+app.post("/ordercreate", orderCreate);
+app.post("/orderupdate", orderUpdate);
+app.get("/statuschekc", orderStatusUpdate);
+app.post("/statusupdate", orderStatusUpdateRoute);
+app.get("/refund", orderRefundAndEReturned);
+app.post("/orderdelete", orderDelete);
+app.post("/cartcreate", cartCreate);
+app.post("/cartupdate", addCart);
+app.get("/deletecartproduct", deleteCartProduct);
+app.post("/deletecart", deleteCart);
+app.post("/createshipment", createShipment);
+app.post("/updateshipment", updateShipAddress);
+app.post("/cancelshipment", cancelShip);
+app.post("/deleteshipment", deleteShip);
 
-mongoConnect()
- app.get('/', (res, req) => {
-    res.send('hello')
- })
+mongoConnect();
+app.get("/", (res, req) => {
+  res.send("hello");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-console.log(`Listening on port ${PORT}`);
-  });
+  console.log(`Listening on port ${PORT}`);
+});
 return app;
-
-
-

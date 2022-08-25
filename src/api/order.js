@@ -6,7 +6,7 @@ const {
   orderDeleteService,
 } = require("../service/orderService");
 
-exports.orderCreateRoute = async (req, res) => {
+exports.orderCreate = async (req, res) => {
   const { userId, productId, quantity, price, paymentType, status } = req.body;
   await orderCreateService(
     userId,
@@ -19,7 +19,7 @@ exports.orderCreateRoute = async (req, res) => {
   return res.json({ userId, productId, quantity, price, paymentType, status });
 };
 
-exports.orderUpdateRoute = async (req, res) => {
+exports.orderUpdate = async (req, res) => {
   const { id, quantity } = req.body;
  await orderUpdateService(
     id, quantity
@@ -27,19 +27,19 @@ exports.orderUpdateRoute = async (req, res) => {
   return res.json({ id, quantity });
 };
 
-exports.orderStatusUpdateRoute = async (req, res) => {
+exports.orderStatusUpdate = async (req, res) => {
   const {id, status } = req.body;
   await statusUpdateService(id,status);
   return res.json({ id, status });
 };
 
-exports.orderRefundAndEReturnedRoute = async (req, res) => {
+exports.orderRefundAndEReturned = async (req, res) => {
   const { id } = req.body;
   await refundService(id);
   return res.json({ id });
 };
 
-exports.orderDeleteRoute = async (req, res) => {
+exports.orderDelete = async (req, res) => {
   const { id } = req.body;
   await orderDeleteService(id);
   return res.json({ id });
