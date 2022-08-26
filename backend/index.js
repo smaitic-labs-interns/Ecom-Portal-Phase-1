@@ -39,7 +39,7 @@ app.use(
 
 app.post("/signup", signup);
 app.post("/login", login);
-app.get("/userinformation", loginRoute);
+app.get("/userinformation", login);
 app.post("/productcreate", productCreate);
 app.post("/productupdate", productUpdate);
 app.get("/productsearch", productSearch);
@@ -47,7 +47,7 @@ app.post("/productdelete", productDelete);
 app.post("/ordercreate", orderCreate);
 app.post("/orderupdate", orderUpdate);
 app.get("/statuschekc", orderStatusUpdate);
-app.post("/statusupdate", orderStatusUpdateRoute);
+app.post("/statusupdate", orderStatusUpdate);
 app.get("/refund", orderRefundAndEReturned);
 app.post("/orderdelete", orderDelete);
 app.post("/cartcreate", cartCreate);
