@@ -15,7 +15,7 @@ exports.createShipment = async (ship, orderId) => {
   }
 };
 
-exports.updateShipAddress = async (shipmentId,  address ) => {
+exports.updateShipAddress = async (shipmentId, address) => {
   try {
     let searchId = await Shipping.findById(shipmentId);
     if (searchId) {
@@ -37,7 +37,7 @@ exports.cancelShipment = async (orderId, shipId, shippingStatus) => {
       await Shipping.findByIdAndUpdate(shipId, {
         shippingStatus,
       });
-      return
+      return;
     } else {
       console.log("invalid id or status is not canceled");
     }
@@ -47,7 +47,6 @@ exports.cancelShipment = async (orderId, shipId, shippingStatus) => {
 };
 
 exports.deleteShipment = async (shipmentId) => {
-  let existsId = await Shipping.findByIdAndDelete(shipmentId)
-  return existsId
-} 
-
+  let existsId = await Shipping.findByIdAndDelete(shipmentId);
+  return existsId;
+};
