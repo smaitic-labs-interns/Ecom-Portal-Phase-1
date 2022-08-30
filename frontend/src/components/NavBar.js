@@ -19,23 +19,23 @@ export default function NavBar() {
         <ListItem component="div">
           <ListItemText>
             <Typography color="inherit" variant="title">
-              <Link to="/Home"> Home </Link>
+              <Link to="/homePage"> Home </Link>
             </Typography>
           </ListItemText>
           <ListItemText>
             <Typography color="inherit" variant="title">
-              <Link to="/Product"> Product </Link>
+              <Link to="/productPage"> Product </Link>
             </Typography>
           </ListItemText>
           <ListItemText>
             <Typography color="inherit" variant="title">
-              <Link to="/About"> About </Link>
+              <Link to="/aboutUsPage"> About Us </Link>
             </Typography>
           </ListItemText>
 
           <ListItemText>
             <Typography color="inherit" variant="title">
-              <Link to="/Signup"> Signup </Link>
+              <Link to="/signup"> Signup </Link>
             </Typography>
           </ListItemText>
         </ListItem>

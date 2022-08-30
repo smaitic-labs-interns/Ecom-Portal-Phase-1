@@ -1,14 +1,12 @@
-
-import NavBar from "../components/NavBar"
-import List from "../components/List"
+import NavBar from "../components/NavBar";
+// import List from "../components/List";
 export default function HomePage() {
   return (
-  
-    // <div className="App">
-        <div>
+    <div>
       <NavBar />
-      <List />
-     
+      <div>
+      <h1> ecommerce portal</h1>
+      </div>
     </div>
-  )
+  );
 }
