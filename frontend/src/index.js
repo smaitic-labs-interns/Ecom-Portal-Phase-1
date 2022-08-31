@@ -2,18 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './pages/homePage'
 import Product from './pages/productPage'
 import AboutUs from './pages/aboutUsPage'
+import NavBar from './components/NavBar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <NavBar />
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="homePage" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="productPage" element={<Product />} />
       <Route path="aboutUsPage" element={<AboutUs />} />
     </Routes>

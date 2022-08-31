@@ -1,8 +1,8 @@
-import NavBar from "../components/NavBar";
+// import NavBar from "../components/NavBar";
 export default function AboutUsPage() {
   return (
     <div>
-        <NavBar />
+        {/* <NavBar /> */}
       welcome to ecommerce portal
     </div>
   );

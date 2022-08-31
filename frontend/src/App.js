@@ -4,15 +4,14 @@ import HomePage from './pages/homePage';
 import ProductPage from './pages/productPage'
 import AboutUsPage from './pages/aboutUsPage'
 
-
 function App() {
   return (
         <div>
       <HomePage />
-      <ProductPage/> 
+      <ProductPage/>
       <AboutUsPage />
     </div>
-    
+
   );
 }
 
