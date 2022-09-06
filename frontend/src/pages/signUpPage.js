@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -34,14 +35,29 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const sign = {
+      username: data.get("username"),
       email: data.get("email"),
       password: data.get("password"),
-    });
-  };
+    };
+    await axios({
+      url: "http://localhost:4000/signup",
+      method: "POST",
+      data: sign,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -116,8 +132,8 @@ export default function SignUp() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="" variant="body2">
+                  {"Already have account? Sign In"}
                 </Link>
               </Grid>
             </Grid>

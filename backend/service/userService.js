@@ -2,7 +2,6 @@ const User = require("../model/UserModel");
 const { create, selectOne } = require("../database/UserDB");
 const { passwordEncrypt } = require("../utils/validator");
 const bcrypt = require("bcrypt");
-const { mongoConnect } = require("../connectDatabase/mongoConnect");
 require("dotenv").config({ path: "../.env" });
 
 

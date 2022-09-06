@@ -1,5 +1,6 @@
 const express = require("express");
 require("dotenv").config();
+const cors = require("cors");
 
 const { mongoConnect } = require("./connectDatabase/mongoConnect");
 const {
@@ -36,6 +37,8 @@ app.use(
     extended: true,
   })
 );
+app.use(cors())
+
 
 app.post("/signup", signup);
 app.post("/login", login);
@@ -64,7 +67,7 @@ app.get("/", (res, req) => {
   res.send("hello");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });

@@ -45,6 +45,11 @@ export default function NavBar() {
                   <Link to="/signUpPage">Signup</Link>
                 </TypoGraphy>
               </ListItemText>
+              <ListItemText inset>
+                <TypoGraphy color="inherit" variant="title">
+                  <Link to="/loginPage">Signin</Link>
+                </TypoGraphy>
+              </ListItemText>
             </ListItem>
           </List>
         </Toolbar>

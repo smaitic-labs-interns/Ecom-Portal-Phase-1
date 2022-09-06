@@ -27,7 +27,10 @@ exports.passwordEncrypt = (password) => {
 };
 
 exports.cartProductSchema = async (obj) => {
-  if (await obj.hasOwnProperty("productId") && obj.hasOwnProperty("quantity")) {
+  if (
+    (await obj.hasOwnProperty("productId")) &&
+    obj.hasOwnProperty("quantity")
+  ) {
     return true;
   }
   console.log("Need to have product id and quantity");
