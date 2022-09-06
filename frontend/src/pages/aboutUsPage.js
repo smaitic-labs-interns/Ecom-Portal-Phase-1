@@ -2,8 +2,8 @@
 export default function AboutUsPage() {
   return (
     <div>
-        {/* <NavBar /> */}
-      welcome to ecommerce portal
+      {/* <NavBar /> */}
+      Welcome to about us
     </div>
   );
 }
