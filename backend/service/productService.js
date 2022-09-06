@@ -33,7 +33,7 @@ exports.productCreateService= async (title, description, quantity, price) => {
   }
 }
 
-const productUpdateService= async (productId, quantity,price) => {
+exports.productUpdateService= async (productId, quantity,price) => {
   var valid_id = mongoose.Types.ObjectId.isValid(productId);
   if (valid_id) {
     try {

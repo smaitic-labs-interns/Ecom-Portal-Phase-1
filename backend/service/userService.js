@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config({ path: "../.env" });
 
 
-exports.signup = async (username, email, password) => {
+exports.signupService = async (username, email, password) => {
   try {
     let user = new User({
       username: username,
@@ -20,7 +20,7 @@ exports.signup = async (username, email, password) => {
 }
 
 
-exports.login = async(email,password) => {
+exports.loginService = async(email,password) => {
   try {
   
     let user = await selectOne(email);

@@ -1,10 +1,6 @@
+import ProductPage from "../features/product/product";
 
-import List from "../components/List";
-export default function Product() {
-  return (
-    // <div className="App">
-    <div>
-      <List />
-    </div>
-  );
+function Product() {
+  return <ProductPage />;
 }
+export default Product;
