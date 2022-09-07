@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { useState } from "react";
 
 function Copyright(props) {
   return (
@@ -35,30 +36,50 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const handleEvent = (event) => {
+    let newValues = { ...values, [event.target.name]: event.target.value };
+    setValues(newValues);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const sign = {
-      username: data.get("username"),
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-    await axios({
-      url: "http://localhost:4000/signup",
-      method: "POST",
-      data: sign,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // const data = new FormData(event.currentTarget);
+    validate();
+    console.log(values, "Values");
+    if (Object.keys(errors).length === 0) {
+      // const sign = {
+      //   username: data.get("username"),
+      //   email: data.get("email"),
+      //   password: data.get("password"),
+      // };
+      // console.log(sign, "sadfasdf");
+      
+      await axios
+        .post("http://localhost:4000/signup", values)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
+  const validate = () => {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let new_errors = {};
+    if (!re.test(values?.email)) {
+      new_errors["email"] = "Email is invalid";
+    }
+    if (values?.username == null || values?.username === "") {
+      new_errors["username"] = "Username is required";
+    }
+    if (values?.password == null || values?.password === "") {
+      new_errors["password"] = "Password is required";
+    }
 
+    setErrors(new_errors);
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -92,7 +113,17 @@ export default function SignUp() {
               type="userame"
               id="username"
               autoComplete="username"
+              onChange={handleEvent}
             />
+            {errors.username && (
+              <p
+                style={{
+                  color: "red",
+                }}
+              >
+                {errors.username}
+              </p>
+            )}
             <TextField
               margin="normal"
               required
@@ -100,9 +131,19 @@ export default function SignUp() {
               id="email"
               label="Email Address"
               name="email"
+              onChange={handleEvent}
               autoComplete="email"
               autoFocus
             />
+            {errors.email && (
+              <p
+                style={{
+                  color: "red",
+                }}
+              >
+                {errors.email}
+              </p>
+            )}
             <TextField
               margin="normal"
               required
@@ -111,8 +152,18 @@ export default function SignUp() {
               label="Password"
               type="password"
               id="password"
+              onChange={handleEvent}
               autoComplete="current-password"
             />
+            {errors.password && (
+              <p
+                style={{
+                  color: "red",
+                }}
+              >
+                {errors.password}
+              </p>
+            )}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

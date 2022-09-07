@@ -2,6 +2,7 @@ const {signupService, loginService } = require("../service/userService");
 
 exports.signup = async (req, res) => {
   const { username, email, password } = req.body;
+  console.log(req.body,'checking password');
  await signupService(username, email, password);
   res.json({ username, email, password });
 };
