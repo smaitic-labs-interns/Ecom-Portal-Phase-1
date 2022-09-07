@@ -1,11 +1,11 @@
 const User = require("../model/UserModel");
 const { create, selectOne } = require("../database/UserDB");
-const { passwordEncrypt } = require("../utils/validator");
+const {isEmpty, passwordEncrypt } = require("../utils/validator");
 const bcrypt = require("bcrypt");
 require("dotenv").config({ path: "../.env" });
 
 
-exports.signup = async (username, email, password) => {
+exports.signupService = async (username, email, password) => {
   try {
     let user = new User({
       username: username,
@@ -13,16 +13,19 @@ exports.signup = async (username, email, password) => {
       password: passwordEncrypt(password),
     });
     console.log(user);
-    await create(user);
+    if(!isEmpty(username) &&
+      !isEmpty(password) &&
+      !isEmpty(email) ){
+        await create(user);
+      }
   } catch (error) {
     throw error;
   }
 }
 
 
-exports.login = async(email,password) => {
+exports.loginService = async(email,password) => {
   try {
-  
     let user = await selectOne(email);
     console.log(user);
     if (user && bcrypt.compareSync(password, user.password))
