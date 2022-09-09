@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from 'axios'
+import {useState} from 'react'
 
 function Copyright(props) {
   return (
@@ -35,21 +36,36 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const handleEvent = (event) => {
+    let newValues = { ...values, [event.target.name]: event.target.value };
+    setValues(newValues);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const sign = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-    console.log(sign,'login data');
-    await axios.post("http://localhost:4000/login", sign)
+       validate();
+    if (Object.keys(errors).length === 0) {
+      await axios
+        .post("http://localhost:4000/login", values)
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
           console.log(error);
         });
+    }
+  }; const validate = () => {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let new_errors = {};
+    if (!re.test(values?.email)) {
+      new_errors["email"] = "Invalid Email";
+    }
+    if (values?.password == null || values?.password === "") {
+      new_errors["password"] = "Password is required";
+    }
+
+    setErrors(new_errors);
   };
 
   return (
@@ -85,7 +101,15 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleEvent}
             />
+            <p
+              style={{
+                color: "red",
+              }}
+            >
+              {errors.email}
+            </p>
             <TextField
               margin="normal"
               required
@@ -95,7 +119,15 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleEvent}
             />
+            <p
+              style={{
+                color: "red",
+              }}
+            >
+              {errors.password}
+            </p>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

@@ -21,6 +21,7 @@ const {
   productUpdate,
   productSearch,
   productDelete,
+  getProduct,
 } = require("./api/product");
 const {
   createShipment,
@@ -42,7 +43,7 @@ app.use(cors())
 
 app.post("/signup", signup);
 app.post("/login", login);
-app.get("/userinformation", login);
+app.get('/getproduct', getProduct)
 app.post("/productcreate", productCreate);
 app.post("/productupdate", productUpdate);
 app.get("/productsearch", productSearch);
