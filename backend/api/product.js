@@ -1,6 +1,10 @@
-const { productCreateService, productUpdateService, productSearchService, productDeleteService } = require("../service/productService");
+const { productCreateService, productUpdateService, productSearchService, productDeleteService, getProductService } = require("../service/productService");
 
-
+exports.getProduct = async (req, res) => {
+  const {title, description, quantity, price} = req.params;
+  await getProductService(title, description, quantity, price);
+  return res.json(title, description, quantity, price);
+}
 exports.productCreate = async (req, res) => {
   const { title, description, quantity, price } = req.body;
   await productCreateService(title, description, quantity, price);

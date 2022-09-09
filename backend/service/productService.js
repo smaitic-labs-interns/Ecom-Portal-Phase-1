@@ -3,6 +3,7 @@ const {
   updateProduct,
   deleteProduct,
   filterOneProductOnSearch,
+  getProduct,
 } = require("../database/ProductDB");
 const Product = require("../model/ProductModel");
 const { isEmpty } = require("../utils/validator");
@@ -10,6 +11,15 @@ const { mongoConnect } = require("../connectDatabase/mongoConnect");
 const { listenerCount } = require("../model/ProductModel");
 const mongoose = require('mongoose')
 require("dotenv").config({ path: "../.env" });
+
+exports.getProductService = async (title, description, quantity, price) =>
+{
+  try {
+    await getProduct(title, description, quantity, price);
+  } catch (error) {
+    throw error
+  }
+}
 
 exports.productCreateService= async (title, description, quantity, price) => {
   try {

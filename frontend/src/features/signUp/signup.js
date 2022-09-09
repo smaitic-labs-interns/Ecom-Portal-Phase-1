@@ -69,7 +69,7 @@ export default function SignUp() {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let new_errors = {};
     if (!re.test(values?.email)) {
-      new_errors["email"] = "Email is invalid";
+      new_errors["email"] = "Invalid Email";
     }
     if (values?.username == null || values?.username === "") {
       new_errors["username"] = "Username is required";
