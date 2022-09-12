@@ -2,7 +2,7 @@ const Product = require("../model/ProductModel");
 
 exports.getProduct = async (title, description, quantity, price) => {
   try {
-    const getProduct = await Product.find(title, description, quantity, price);
+    const getProduct = await Product.find({title, description, quantity, price});
     console.log(getProduct);
     return getProduct;
   } catch (error) {

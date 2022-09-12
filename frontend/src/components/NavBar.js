@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 
 
 export default function NavBar() {
@@ -50,6 +51,20 @@ export default function NavBar() {
                   <Link to="/loginPage">Signin</Link>
                 </TypoGraphy>
               </ListItemText>
+              
+            <ListItemText>
+          <IconButton size="large" aria-label="search" color="inherit">
+            <SearchIcon />
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="display more actions"
+            edge="end"
+            color="inherit"
+          >
+          </IconButton>
+            </ListItemText>
+
             </ListItem>
           </List>
         </Toolbar>
