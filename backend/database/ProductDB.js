@@ -1,8 +1,8 @@
 const Product = require("../model/ProductModel");
 
-exports.getProduct = async (title, description, quantity, price) => {
+exports.getProduct = async () => {
   try {
-    const getProduct = await Product.find({title, description, quantity, price});
+    const getProduct = await Product.find();
     console.log(getProduct);
     return getProduct;
   } catch (error) {

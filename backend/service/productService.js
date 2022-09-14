@@ -10,10 +10,10 @@ const { isEmpty } = require("../utils/validator");
 const mongoose = require('mongoose')
 require("dotenv").config({ path: "../.env" });
 
-exports.getProductService = async (title, description, quantity, price) =>
+exports.getProductService = async () =>
 {
   try {
-    let product = await getProduct(title, description, quantity, price);
+    let product = await getProduct();
     return product
   } catch (error) {
     throw error

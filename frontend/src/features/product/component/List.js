@@ -47,6 +47,13 @@ export default function List({userAvatar, name}){
                   </a>
                 </Typography>
               </ListItemText>
+              <ListItemText inset>
+                <Typography>
+                  <a href="/cartPage" variant="p">
+                    Add to cart
+                  </a>
+                </Typography>
+              </ListItemText>
             </Paper>
           </Grid>
         </Grid>
