@@ -12,8 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
+import {Signup} from '../../connections/authentication';
 import { useState } from "react";
+// import { signup } from "../../../../backend/api/user";
 
 function Copyright(props) {
   return (
@@ -54,15 +55,8 @@ export default function SignUp() {
       //   password: data.get("password"),
       // };
       // console.log(sign, "sadfasdf");
+      Signup(values)
       
-      await axios
-        .post("http://localhost:4000/signup", values)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     }
   };
   const validate = () => {

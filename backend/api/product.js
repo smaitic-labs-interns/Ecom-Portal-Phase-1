@@ -1,10 +1,17 @@
 const { productCreateService, productUpdateService, productSearchService, productDeleteService, getProductService } = require("../service/productService");
 
 exports.getProduct = async (req, res) => {
-  const {title, description, quantity, price} = req.params;
-  await getProductService(title, description, quantity, price);
-  return res.json(title, description, quantity, price);
-}
+    try {
+        const response = await getProductService();
+        console.log('cfdasfsad',response);
+        res.status(200).json({
+            'message': 'Success',
+            'data': response
+        })
+    }catch (error) {
+        res.status(400).send(error);
+    }
+  }
 exports.productCreate = async (req, res) => {
   const { title, description, quantity, price } = req.body;
   await productCreateService(title, description, quantity, price);

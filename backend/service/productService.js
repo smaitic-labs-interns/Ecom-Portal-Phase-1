@@ -7,15 +7,14 @@ const {
 } = require("../database/ProductDB");
 const Product = require("../model/ProductModel");
 const { isEmpty } = require("../utils/validator");
-const { mongoConnect } = require("../connectDatabase/mongoConnect");
-const { listenerCount } = require("../model/ProductModel");
 const mongoose = require('mongoose')
 require("dotenv").config({ path: "../.env" });
 
-exports.getProductService = async (title, description, quantity, price) =>
+exports.getProductService = async () =>
 {
   try {
-    await getProduct(title, description, quantity, price);
+    let product = await getProduct();
+    return product
   } catch (error) {
     throw error
   }

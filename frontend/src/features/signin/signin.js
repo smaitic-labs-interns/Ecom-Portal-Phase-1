@@ -12,8 +12,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from 'axios'
-import {useState} from 'react'
+import {useState} from 'react';
+import { Signin } from "../../connections/authentication";
 
 function Copyright(props) {
   return (
@@ -46,14 +46,7 @@ export default function SignIn() {
     event.preventDefault();
        validate();
     if (Object.keys(errors).length === 0) {
-      await axios
-        .post("http://localhost:4000/login", values)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+     Signin(values)
     }
   }; const validate = () => {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
